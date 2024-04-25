@@ -27,7 +27,7 @@
                                 <p class="text-muted">Sign in to continue to Minible.</p>
                             </div>
                             <div class="p-2 mt-4">
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="{{ route('admin_store') }}">
                                     @csrf
 
                                     <div class="mb-3">
