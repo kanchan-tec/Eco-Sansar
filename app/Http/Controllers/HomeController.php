@@ -24,19 +24,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
-    {
-        if (view()->exists($request->path())) {
-            return view($request->path());
-        }
-        return abort(404);
-    }
 
-    public function root()
-    {
-        return view('index');
-    }
 
+    // public function root()
+    // {
+    //     return view('frontend/index');
+    // }
+
+   
     /*Language Translation*/
     public function lang($locale)
     {

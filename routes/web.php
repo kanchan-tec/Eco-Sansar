@@ -13,15 +13,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index']);
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'root']);
 
-Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
-//Language Translation
 
-Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
+// Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
+// //Language Translation
 
-Route::post('/formsubmit', [App\Http\Controllers\HomeController::class, 'FormSubmit'])->name('FormSubmit');
+// Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
+
+// Route::post('/formsubmit', [App\Http\Controllers\HomeController::class, 'FormSubmit'])->name('FormSubmit');
+
+Route::get('/admin_login', [App\Http\Controllers\admin\AuthController::class, 'admin_login']);
