@@ -4,12 +4,13 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\admin\Contact;
 
 class ContactController extends Controller
 {
     public function list()
    {
-     $contacts = Contactus::orderBy('id', 'DESC')->get();
+     $contacts = Contact::orderBy('id', 'DESC')->get();
      $data = compact('contacts');
      return view('admin.contact.list',compact('contacts'));
    }
@@ -28,7 +29,7 @@ class ContactController extends Controller
             'map' => 'required'
         ]);
 
-        $contact = new Contactus;
+        $contact = new Contact;
         $contact->email = $req->email;
         $contact->mobile = $req->mobile;
         $contact->address = $req->address;

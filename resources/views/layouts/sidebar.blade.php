@@ -48,7 +48,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('faq.list') }}">FAQs</a></li>
-                        <li><a href="ecommerce-product-detail">Contact Us</a></li>
+                        <li><a href="{{ route('contact.list') }}">Contact Us</a></li>
 
                     </ul>
                 </li>

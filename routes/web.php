@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\FaqController;
+use App\Http\Controllers\admin\ContactController;
 
 /*
 |--------------------------------------------------------------------------
