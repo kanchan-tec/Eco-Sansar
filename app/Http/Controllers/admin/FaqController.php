@@ -19,7 +19,10 @@ class FaqController extends Controller
     public function save(Request $req){
         // echo "<pre>";
         // print_r($req->all());die;
+     
+
         $faq = new Faq();
+        $faq->category = $req->category;
         $faq->question = $req->question;
         $faq->answer = $req->answer;
         $faq->save();

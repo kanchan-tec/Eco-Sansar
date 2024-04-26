@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-@lang('translation.Basic_Elements')
+FAQ Add
 @endsection
 
 @section('content')
@@ -15,39 +15,54 @@
             <div class="card-body">
                 {{--  <h4 class="card-title">Form layouts</h4>  --}}
                 <div class="row ">
-                    <div class="col-lg-5">
+                    <div class="col-lg-12">
                         <div class="mt-4">
                             {{--  <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Form groups</h5>  --}}
-                            <form action="{{ route('faq.save') }} " method="POST">
-                                <div class="mb-3">
-                                    <label class="form-label" for="formrow-Fullname-input">Category</label>
-                                    <input type="text" class="form-control" id="formrow-Fullname-input" placeholder="Enter your full Name">
-                                </div>
 
+
+
+                            <form class="needs-validation" novalidate>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-email-input">Question</label>
-                                            <input type="text" class="form-control" name="question" id="question" placeholder="Enter your email address">
+                                            <label class=" form-label">Category</label>
+                                            <select class="form-select" name="category" id="category" required>
+                                                <option value="">Select</option>
+                                                <option value="General Inquiry">General Inquiry</option>
+                                                <option value="Technical Support">Technical Support</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                               Please select category
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formrow-password-input">Question</label>
+                                            <input required type="text" class="form-control" name="question" id="question" placeholder="Enter your question">
+                                           <div class="invalid-feedback">
+                                                Please provide question.
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="formrow-password-input">Answer</label>
-                                            <input type="text" class="form-control" name="answer" id="answer" placeholder="Enter your password">
+                                            <input required type="text" class="form-control" name="answer" id="answer" placeholder="Enter your answer">
+                                           <div class="invalid-feedback">
+                                                Please provide answer.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary" type="submit">Submit form</button>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="formrow-customCheck">
-                                    <label class="form-check-label" for="formrow-customCheck">Check me out</label>
-                                </div>
-
-                                <div class="d-flex flex-wrap gap-3 mt-3">
-                                    <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Submit</button>
-                                    <button type="reset" class="btn btn-outline-danger waves-effect waves-light w-md">Reset</button>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -57,4 +72,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+    <script src="{{ URL::asset('/assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/pages/form-validation.init.js') }}"></script>
 @endsection
