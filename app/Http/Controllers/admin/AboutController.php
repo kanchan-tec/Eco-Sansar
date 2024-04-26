@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\About;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AboutController extends Controller
 {
@@ -24,7 +25,7 @@ class AboutController extends Controller
         $about->content = $modifiedContent;
         $about->save();
         Alert::success('success','About content added successfully');
-        return redirect()->route('about.list');
+        return redirect()->route('about.add');
     }
     public function edit($id){
         $url = route('about.update',$id);
@@ -36,11 +37,11 @@ class AboutController extends Controller
         $about->content = $req->content;
         $about->save();
         Alert::success('success','About content updated successfully');
-        return redirect()->route('about.list');
+        return redirect()->route('about.edit',$id);
     }
     public function delete($id){
         About::where('id',$id)->delete();
         Alert::success('success','About content deleted successfully');
-        return redirect()->route('about.list');
+        return redirect()->route('about.edit');
     }
 }

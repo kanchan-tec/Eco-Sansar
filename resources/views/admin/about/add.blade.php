@@ -13,7 +13,6 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -25,7 +24,6 @@
                                             <div class="col-md-8">
                                                 <div class="mb-3">
                                                     <button class="btn btn-primary" type="submit">Submit</button>
-                                                    <a href="{{route('about.list')}}" class="btn btn-primary">Cancel</a>
                                                 </div>
                                             </div>
                                         </div>
