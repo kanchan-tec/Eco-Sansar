@@ -68,7 +68,7 @@
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
 
-                    <a class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">z<i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">@lang('translation.Sign_out')</span></a>
+                    <a class="dropdown-item" href="{{ url('admin_logout') }}"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">@lang('translation.Sign_out')</span></a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>

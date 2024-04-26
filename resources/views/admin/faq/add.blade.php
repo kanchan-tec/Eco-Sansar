@@ -6,7 +6,7 @@ FAQ Add
 @section('content')
 @component('common-components.breadcrumb')
 @slot('pagetitle')   Add @endslot
-@slot('title') FAQ Add @endslot
+@slot('title') FAQ @endslot
 @endcomponent
 
 <div class="row justify-content-center align-items-center">

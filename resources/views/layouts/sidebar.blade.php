@@ -47,6 +47,7 @@
                         <span>Pages</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('about.list') }}">About</a></li>
                         <li><a href="{{ route('faq.list') }}">FAQs</a></li>
                         <li><a href="{{ route('contact.list') }}">Contact Us</a></li>
 
