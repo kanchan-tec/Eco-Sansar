@@ -47,7 +47,7 @@
                         <span>Pages</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="ecommerce-products">FAQs</a></li>
+                        <li><a href="{{ route('faq.list') }}">FAQs</a></li>
                         <li><a href="ecommerce-product-detail">Contact Us</a></li>
 
                     </ul>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\FaqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,10 @@ Route::controller(ContactController::class)->group(function(){
     Route::get('contact/list','list')->name('contact.list');
     Route::get('contact/add', 'add')->name('contact.add');
     Route::post('contact/save','save')->name('contact.save');
+});
+
+Route::controller(FaqController::class)->group(function(){
+    Route::get('faq/list','list')->name('faq.list');
+    Route::get('faq/add', 'add')->name('faq.add');
+    Route::post('faq/save','save')->name('faq.save');
 });
