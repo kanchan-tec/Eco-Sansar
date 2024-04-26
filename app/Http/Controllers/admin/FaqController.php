@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\faq;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FaqController extends Controller
 {
@@ -22,6 +23,8 @@ class FaqController extends Controller
         $faq->question = $req->question;
         $faq->answer = $req->answer;
         $faq->save();
+        Alert::success('success','FAQ Added Successfully');
+        return redirect()->route('faq.list');
     }
     public function edit($id){
         $url = route('faq.update', $id);
@@ -35,8 +38,12 @@ class FaqController extends Controller
         $faq->question = $req->question;
         $faq->answer = $req->answer;
         $faq->save();
+        Alert::success('success','FAQ Updated Successfully');
+        return redirect()->route('faq.list');
     }
     public function delete($id){
         Faq::where('id',$id)->delete();
+        Alert::success('success','FAQ Deleted Successfully');
+        return redirect()->route('faq.list');
     }
 }

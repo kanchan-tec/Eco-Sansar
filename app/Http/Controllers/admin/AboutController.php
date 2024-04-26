@@ -23,6 +23,8 @@ class AboutController extends Controller
         $about = new About();
         $about->content = $modifiedContent;
         $about->save();
+        Alert::success('success','About content added successfully');
+        return redirect()->route('about.list');
     }
     public function edit($id){
         $url = route('about.update',$id);
@@ -33,8 +35,12 @@ class AboutController extends Controller
         $about = About::find($id);
         $about->content = $req->content;
         $about->save();
+        Alert::success('success','About content updated successfully');
+        return redirect()->route('about.list');
     }
     public function delete($id){
         About::where('id',$id)->delete();
+        Alert::success('success','About content deleted successfully');
+        return redirect()->route('about.list');
     }
 }
