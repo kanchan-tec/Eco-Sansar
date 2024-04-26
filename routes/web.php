@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\FaqController;
 use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\AboutController;
+use App\Http\Controllers\frontend\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@ use App\Http\Controllers\admin\AboutController;
 |
 */
 Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index']);
+
+Route::controller(IndexController::class)->group(function(){
+    Route::get('/','index');
+    Route::get('user_register', 'user_register')->name('user_register');
+
+});
 
 Auth::routes();
 

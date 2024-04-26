@@ -6,23 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="ThemeStarz">
 
-    <link href="assets/fonts/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href="assets/fonts/elegant-fonts.css" rel="stylesheet" type="text/css">
+    <link href="frontend/assets/fonts/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="frontend/assets/fonts/elegant-fonts.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900,400italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="frontend/assets/bootstrap/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="frontend/assets/css/zabuto_calendar.min.css" type="text/css">
+    <link rel="stylesheet" href="frontend/assets/css/owl.carousel.css" type="text/css">
 
-    <title>Locations - Directory Listing HTML Template</title>
+    <link rel="stylesheet" href="frontend/assets/css/jquery.nouislider.min.css" type="text/css">
+    <link rel="stylesheet" href="frontend/assets/css/style.css" type="text/css">
+
+    <title>EcoSansar</title>
 
 </head>
 
-<body>
+<body class="nav-btn-only homepage">
 <div class="page-wrapper">
     <header id="page-header">
         <nav>
             <div class="left">
-                <a href="index.html" class="brand"><img src="assets/img/logo.png" alt=""></a>
+                <a href="index.html" class="brand"><img src="frontend/assets/img/logo.png" alt=""></a>
             </div>
             <!--end left-->
             <div class="right">
@@ -129,7 +132,7 @@
                                                                 <a href="#" class="btn btn-default btn-framed">Submit Your Listing</a>
                                                             </div>
                                                         </div>
-                                                        <div class="bg-transfer"><img src="assets/img/items/10.jpg" alt=""></div>
+                                                        <div class="bg-transfer"><img src="frontend/assets/img/items/10.jpg" alt=""></div>
                                                     </div>
                                                 </div>
                                                 <!--end col-md-3-->
@@ -198,7 +201,7 @@
                 <!--end primary-nav-->
                 <div class="secondary-nav">
                     <a href="#" data-modal-external-file="modal_sign_in.php" data-target="modal-sign-in">Sign In</a>
-                    <a href="#" class="promoted" data-modal-external-file="modal_register.php" data-target="modal-register">Register</a>
+                    <a href="{{ route('user_register') }}" class="promoted" >Register</a>
                 </div>
                 <!--end secondary-nav-->
                 <a href="#" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" data-modal-external-file="modal_submit.php" data-target="modal-submit"><i class="fa fa-plus"></i><span>Add listing</span></a>
@@ -213,3 +216,4 @@
         </nav>
         <!--end nav-->
     </header>
+    <!--end page-header-->
