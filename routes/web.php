@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::controller(IndexController::class)->group(function(){
     Route::get('user_register', 'user_register')->name('user_register');
     Route::get('user_type', 'user_type')->name('user_type');
     Route::get('business_add', 'business_add')->name('business_add');
+    Route::get('sab_add', 'sab_add')->name('sab_add');
+    Route::get('consumer_add', 'consumer_add')->name('consumer_add');
     Route::post('business_save','business_save')->name('business.save');
     Route::post('sab_save','sab_save')->name('sab.save');
     Route::post('consumer_save','consumer_save')->name('consumer.save');
@@ -48,6 +51,10 @@ Route::get('/admin_logout', [App\Http\Controllers\admin\AuthController::class, '
 Route::get('/admin_profile/{id}', [App\Http\Controllers\admin\AuthController::class, 'admin_profile'])->name('admin.admin_profile');
 Route::post('/admin_profile_update/{id}', [App\Http\Controllers\admin\AuthController::class, 'admin_profile_update'])->name('admin_profile_update');
 
+Route::controller(AdminController::class)->group(function(){
+    Route::get('user/list','list')->name('user.list');
+
+});
 
 Route::controller(ContactController::class)->group(function(){
     Route::get('contact/list','list')->name('contact.list');

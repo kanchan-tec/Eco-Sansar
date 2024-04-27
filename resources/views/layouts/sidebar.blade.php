@@ -89,6 +89,12 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ route('user.list') }}" class="waves-effect">
+                        <i class="uil-calender"></i>
+                        <span>Usertype List</span>
+                    </a>
+                </li>
 
 
                 {{--

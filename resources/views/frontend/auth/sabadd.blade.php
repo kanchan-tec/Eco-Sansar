@@ -9,46 +9,15 @@
                         <h1>Register</h1>
                     </section
                     <!--end page-title-->
-                    <section id="business">
-                        <form class="form inputs-underline" action="{{ route('business.save') }}" method="post">
+                    <section id="sab" >
+                        <form class="form inputs-underline" action="{{ route('sab.save') }}" method="post">
                             @csrf
-                            <input type="hidden" name="user_type" value="business">
+                            <input type="text" name="user_type" value="sab">
                             <div class="row">
 
                                     <div class="form-group">
-                                        <label for="name"> Business Name</label>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Business Name">
-                                        @if ($errors->has('name'))
-                                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                                            @endif
-                                    </div>
-                                    <!--end form-group-->
-
-
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input type="text" class="form-control" name="address" id="address" placeholder="Address">
-                                    @if ($errors->has('name'))
-                                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                                            @endif
-                                </div>
-                                <!--end form-group-->
-                                <div class="form-group">
-                                    <label for="pincode">Pincode</label>
-                                    <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode">
-                                    @if ($errors->has('name'))
-                                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                                            @endif
-                                </div>
-                                <!--end form-group-->
-                                <!--end col-md-6-->
-
-                                    <div class="form-group">
-                                        <label for="contact_person">Contact Person </label>
-                                        <input type="text" class="form-control" name="contact_person" id="contact_person" placeholder="Contact Person">
-                                        @if ($errors->has('name'))
-                                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                                            @endif
+                                        <label for="name">  Name</label>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder=" Name">
                                     </div>
                                     <!--end form-group-->
 
@@ -56,44 +25,40 @@
                                     <div class="form-group">
                                         <label for="mobile">Phone number </label>
                                         <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number">
-                                        @if ($errors->has('mobile'))
-                                                <span class="text-danger">{{ $errors->first('mobile') }}</span>
-                                            @endif
                                     </div>
                                     <!--end form-group-->
 
                                 <!--end col-md-6-->
+
                                 <div class="form-group">
-                                    <label for="email">Email id</label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-                                    @if ($errors->has('email'))
-                                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                                            @endif
+                                    <label for="address">Location</label>
+                                    <input type="text" class="form-control" name="address" id="address" placeholder="Location">
                                 </div>
+                                <!--end form-group-->
                                 <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-                                    @if ($errors->has('password'))
-                                                <span class="text-danger">{{ $errors->first('password') }}</span>
-                                            @endif
+                                    <label for="pincode">Pincode</label>
+                                    <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode">
                                 </div>
-                                <div class="form-group">
-                                    <label for="gst">GST Number</label>
-                                    <input type="text" class="form-control" name="gst" id="gst" placeholder="GST">
-                                    @if ($errors->has('gst'))
-                                                <span class="text-danger">{{ $errors->first('gst') }}</span>
-                                            @endif
-                                </div>
-                            </div>
-                            <!--enr row-->
+                                <!--end form-group-->
+                                <!--end col-md-6-->
+
+                                    <div class="form-group">
+                                        <label for="latitude">Latitude </label>
+                                        <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude">
+                                    </div>
+                                    <!--end form-group-->
 
 
+                                    <div class="form-group">
+                                        <label for="longitude">Longitude </label>
+                                        <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude">
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
                             <!--end form-group-->
-
-
+                            <div class="form-group center">
                                 <button type="submit" class="btn btn-primary width-100">Register Now</button>
-                                <a href="{{route('user_type')}}" class="btn btn-primary width-100">Back</a>
-                            
+                            </div>
                             <!--end form-group-->
                         </form>
 
