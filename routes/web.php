@@ -52,8 +52,9 @@ Route::get('/admin_profile/{id}', [App\Http\Controllers\admin\AuthController::cl
 Route::post('/admin_profile_update/{id}', [App\Http\Controllers\admin\AuthController::class, 'admin_profile_update'])->name('admin_profile_update');
 
 Route::controller(AdminController::class)->group(function(){
-    Route::get('user/list','list')->name('user.list');
-
+    Route::get('user/businesslist','businesslist')->name('user.businesslist');
+    Route::get('user/sablist','sablist')->name('user.sablist');
+    Route::get('user/consumerlist','consumerlist')->name('user.consumerlist');
 });
 
 Route::controller(ContactController::class)->group(function(){

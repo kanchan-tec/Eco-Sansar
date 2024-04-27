@@ -90,10 +90,16 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ route('user.list') }}" class="waves-effect">
-                        <i class="uil-calender"></i>
-                        <span>Usertype List</span>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-store"></i>
+                        <span>Users</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('user.businesslist') }}">Business</a></li>
+                       <li><a href="{{ route('user.sablist') }}">SAB</a></li>
+                       <li><a href="{{ route('user.consumerlist') }}">Consumer</a></li>
+
+                    </ul>
                 </li>
 
 
