@@ -1,17 +1,13 @@
 @include('frontend.include.header')
+
 @include('sweetalert::alert')
-    <div id="page-content">
-        <div class="container">
-            <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Pages</a></li>
-                <li class="active">Contact</li>
-            </ol>
-            <!--end breadcrumb-->
-            <a href="{{ route('business_add') }}" class="btn btn-primary btn-small btn-rounded" ><span>BUSINESS</span></a>
-            
-            <a href="#" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" data-modal-external-file="modal_submit.php" data-target="modal-submit"> <span>SAB</span></a>
-            <a href="#" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" data-modal-external-file="modal_submit.php" data-target="modal-submit"> <span>CONSUMER</span></a>
+    <div id="page-content" style="background-image: url('frontend/assets/img/usertype.jpg');height: 490px;position: relative">
+        <div class="container text-center" style="top:40%;left:10%;position: absolute;" >
+
+            <a href="{{ route('business_add') }}" class="btn btn-primary  btn-rounded" style="padding: 10px 100px;font-size: 20px;"><span>BUSINESS</span></a>
+
+            <a href="{{ route('sab_add') }}" class="btn btn-primary btn-rounded" style="padding: 10px 100px;font-size: 20px;"> <span>SAB</span></a>
+            <a href="{{ route('consumer_add') }}" class="btn btn-primary  btn-rounded " style="padding: 10px 100px;font-size: 20px;"> <span>CONSUMER</span></a>
             <!--end ro-->
         </div>
         <!--end container-->
