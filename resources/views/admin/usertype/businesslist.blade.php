@@ -51,7 +51,7 @@
                                         <td>{{ $res->mobile }}</td>
                                         <td>{{ $res->user_type }}</td>
                                         <td>
-                                            <a title="View" href="" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>
+                                            <a title="View" href="{{ route('user.businessview',$res->id) }}" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>
                                             {{--  <a title="Edit" href="{{ route('user.edit', $res->id) }}" class="btn btn-outline-success btn-sm edit"><i class="fas fa-pencil-alt"></i></a>
                                             <a title="Delete" href="{{ route('user.delete', $res->id) }}" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-outline-danger btn-sm deleteAttr"><i class="fas fa-trash-alt"></i></a>  --}}
                                         </td>

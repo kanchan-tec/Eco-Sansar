@@ -55,6 +55,9 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('user/businesslist','businesslist')->name('user.businesslist');
     Route::get('user/sablist','sablist')->name('user.sablist');
     Route::get('user/consumerlist','consumerlist')->name('user.consumerlist');
+    Route::get('user/businessview/{id}','businessview')->name('user.businessview');
+    Route::get('user/sabview/{id}','sabview')->name('user.sabview');
+    Route::get('user/consumerview/{id}','consumerview')->name('user.consumerview');
 });
 
 Route::controller(ContactController::class)->group(function(){

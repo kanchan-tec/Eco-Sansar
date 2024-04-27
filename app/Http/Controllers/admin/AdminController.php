@@ -20,11 +20,19 @@ class AdminController extends Controller
     $result = EcosansarUsers::where('user_type','consumer')->get();
     return view('admin/usertype/consumerlist',compact('result'));
   }
-  public function view($id){
+  public function businessview($id){
     $users = EcosansarUsers::where('id', $id)->first();
-
-    $users=compact('users');
-    return view('admin/usertype/view')->with($data);
+    $data=compact('users');
+    return view('admin/usertype/businessview')->with($data);
   }
-
+  public function sabview($id){
+    $users = EcosansarUsers::where('id', $id)->first();
+    $data=compact('users');
+    return view('admin/usertype/sabview')->with($data);
+  }
+  public function consumerview($id){
+    $users = EcosansarUsers::where('id', $id)->first();
+    $data=compact('users');
+    return view('admin/usertype/consumerview')->with($data);
+  }
 }
