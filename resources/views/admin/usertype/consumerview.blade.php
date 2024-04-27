@@ -43,7 +43,7 @@ Consumer View
 
                     <div class="col-4">
                         <p class="mb-0"><strong>Email:</strong><br>
-                        <p>@isset($users->email){{ $users->eamil }}@endisset</p>
+                        <p>@isset($users->email){{ $users->email }}@endisset</p>
                     </div>
 
                 </div>
