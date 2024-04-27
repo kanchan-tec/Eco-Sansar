@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\FaqController;
 use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\frontend\IndexController;
+use App\Http\Controllers\admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------

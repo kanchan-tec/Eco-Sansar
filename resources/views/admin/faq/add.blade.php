@@ -18,7 +18,7 @@ FAQ Add
                     <div class="col-lg-12">
                         <div class="mt-4">
                             {{--  <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Form groups</h5>  --}}
- 
+
                             <form class="needs-validation" novalidate action="{{ $url }}" method="POST">
                                 @csrf
                                 <div class="row">
@@ -27,9 +27,17 @@ FAQ Add
                                             <label class=" form-label">Category</label>
                                             <select class="form-select" name="category" id="category" required>
                                                 <option value="">Select</option>
-                                                <option @if(isset($faq->category) && ($faq->category == "General Inquiry")) selected  @else @endif value="General Inquiry">General Inquiry</option>
-                                                <option @if(isset($faq->category) && ($faq->category == "Technical Support")) selected @else @endif  value="Technical Support">Technical Support</option>
-                                            </select>
+                                                @foreach($category as $cat)
+   <option value="{{ $cat->id }}"
+       @if(isset($faq) && $faq && $cat->id == $faq->category)
+           selected
+       @endif
+   >{{ $cat->category_name }}</option>
+@endforeach
+   </select>
+
+
+
                                             <div class="invalid-feedback">
                                                Please select category
                                             </div>

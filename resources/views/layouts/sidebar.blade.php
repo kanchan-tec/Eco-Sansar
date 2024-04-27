@@ -83,7 +83,7 @@
                     </a>
 
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('contact.list') }}">Category</a></li>
+                        <li><a href="{{ route('category.list') }}">Category</a></li>
                        <li><a href="{{ route('faq.list') }}">FAQs</a></li>
 
 

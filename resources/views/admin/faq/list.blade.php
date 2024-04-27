@@ -27,7 +27,7 @@
                         <a href="{{ route('faq.add') }}" class="btn btn-primary waves-effect waves-light" >Add</a>
                     </div>
                 </div>
-                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                    <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                             <tr>
@@ -45,7 +45,7 @@
                                 @foreach ($result as $res)
                                     <tr>
                                             <td>{{ $i++ }}</td>
-                                            <td>{{ $res->category }}</td>
+                                            <td>{{ $res->category_name }}</td>
                                             <td>{{ $res->question }}</td>
                                             <td>{{ $res->answer }}</td>
                                             <td>
@@ -68,4 +68,21 @@
     <script src="{{ URL::asset('/assets/libs/jszip/jszip.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Check if the datatable has already been initialized
+            if ($.fn.DataTable.isDataTable('#datatable')) {
+                // Destroy the existing DataTable instance
+                $('#datatable').DataTable().destroy();
+            }
+
+            // Initialize the datatable
+            $('#datatable').DataTable({
+                // Your DataTable initialization options here
+                searching: false,
+                lengthChange: false
+            });
+        });
+
+</script>
 @endsection

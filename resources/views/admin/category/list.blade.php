@@ -24,15 +24,16 @@
                         <div>
                         </div>
                     <div >
-                        <a href="{{ route('faq.add') }}" class="btn btn-primary waves-effect waves-light" >Add</a>
+                        <a href="{{ route('category.add') }}" class="btn btn-primary waves-effect waves-light" >Add</a>
                     </div>
                 </div>
-                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                    <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                             <tr>
                                 <th>Sr. No</th>
                                 <th>Category</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,7 +47,7 @@
                                             <td>
                                                 {{--  <a title="View" href="{{ route('faq.', $m->id) }}" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>  --}}
                                                 <a title="Edit" href="{{ route('category.edit', $res->id) }}" class="btn btn-outline-success btn-sm edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a title="Delete" href="{{ route('category.delete', $res->id) }}" onclick="return confirm('Are you sure you want to delete this faq?');" class="btn btn-outline-danger btn-sm deleteAttr"><i class="fas fa-trash-alt"></i></a>
+                                                <a title="Delete" href="{{ route('category.delete', $res->id) }}" onclick="return confirm('Are you sure you want to delete this category?');" class="btn btn-outline-danger btn-sm deleteAttr"><i class="fas fa-trash-alt"></i></a>
                                             </td>
                                     </tr>
                                 @endforeach
@@ -63,4 +64,21 @@
     <script src="{{ URL::asset('/assets/libs/jszip/jszip.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Check if the datatable has already been initialized
+            if ($.fn.DataTable.isDataTable('#datatable')) {
+                // Destroy the existing DataTable instance
+                $('#datatable').DataTable().destroy();
+            }
+
+            // Initialize the datatable
+            $('#datatable').DataTable({
+                // Your DataTable initialization options here
+                searching: false,
+                lengthChange: false
+            });
+        });
+
+</script>
 @endsection
