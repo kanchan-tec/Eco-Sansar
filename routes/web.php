@@ -68,3 +68,12 @@ Route::controller(AboutController::class)->group(function(){
     Route::post('about/update/{id}','update')->name('about.update');
     Route::get('about/delete/{id}','delete')->name('about.delete');
 });
+
+Route::controller(CategoryController::class)->group(function(){
+    Route::get('category/list','list')->name('category.list');
+    Route::get('category/add', 'add')->name('category.add');
+    Route::post('category/save','save')->name('category.save');
+    Route::get('category/edit/{id}','edit')->name('category.edit');
+    Route::post('category/update/{id}','update')->name('category.update');
+    Route::get('category/delete/{id}','delete')->name('category.delete');
+});

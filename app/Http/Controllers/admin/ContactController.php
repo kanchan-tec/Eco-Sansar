@@ -41,7 +41,7 @@ class ContactController extends Controller
         $contact->save();
 
         Alert::success('success','Contact Details Added Successfully');
-        return redirect('contact/list');
+        return redirect()->route('contact.add');
 
    }
 
@@ -65,7 +65,7 @@ class ContactController extends Controller
         $contact->save();
 
         Alert::success('success','Contact Details Updated Successfully');
-        return redirect('contact/list');
+        return redirect()->route('contact.edit',$id);
 
    }
 
