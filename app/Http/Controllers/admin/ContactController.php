@@ -38,6 +38,11 @@ class ContactController extends Controller
         $contact->mobile = $req->mobile;
         $contact->address = $req->address;
         $contact->map = $req->map;
+        $contact->facebook = $req->facebook;
+        $contact->insta = $req->insta;
+        $contact->twitter = $req->twitter;
+        $contact->linkedin = $req->linkedin;
+        $contact->utube = $req->utube;
         $contact->save();
 
         Alert::success('success','Contact Details Added Successfully');
@@ -62,11 +67,15 @@ class ContactController extends Controller
         $contact->mobile = $req->mobile;
         $contact->address = $req->address;
         $contact->map = $req->map;
+        $contact->facebook = $req->facebook;
+        $contact->insta = $req->insta;
+        $contact->twitter = $req->twitter;
+        $contact->linkedin = $req->linkedin;
+        $contact->utube = $req->utube;
         $contact->save();
 
         Alert::success('success','Contact Details Updated Successfully');
         return redirect()->route('contact.edit',$id);
-
    }
 
    public function delete($id)
