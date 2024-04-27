@@ -48,6 +48,9 @@ Consumer View
 
                 </div>
                 </section>
+                <div class="mt-3  text-center">
+                    <a href="{{ route('user.consumerlist') }}" class="btn btn-primary waves-effect waves-light" >Back</a>
+                </div>
                     </div>
 
                 </div>

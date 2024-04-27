@@ -45,9 +45,12 @@ SAB View
                         <p class="mb-0"><strong>Longitude:</strong><br>
                         <p>@isset($users->longitude){{ $users->longitude }}@endisset</p>
                     </div>
-                     
+
                 </div>
                 </section>
+                <div class="mt-3  text-center">
+                    <a href="{{ route('user.sablist') }}" class="btn btn-primary waves-effect waves-light" >Back</a>
+                </div>
                     </div>
 
                 </div>
