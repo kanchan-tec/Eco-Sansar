@@ -19,6 +19,9 @@ class AboutController extends Controller
         return view('admin/about/add',compact('url'));
     }
     public function save(Request $req){
+        $req->validate([
+            'content' => 'required',
+        ]);
         $htmlContent = $req->content;
         $modifiedContent = Str::replaceFirst('../assets/', '/assets/', $htmlContent);
         $about = new About();
@@ -33,6 +36,9 @@ class AboutController extends Controller
         return view('admin/about/add',compact('url','about'));
     }
     public function update(Request $req, $id){
+        $req->validate([
+            'content' => 'required',
+        ]);
         $about = About::find($id);
         $about->content = $req->content;
         $about->save();

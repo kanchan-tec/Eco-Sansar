@@ -23,6 +23,11 @@ class FaqController extends Controller
         return view('admin/faq/add',compact('url','category'));
     }
     public function save(Request $req){
+        $req->validate([
+            'category' => 'required',
+            'question' => 'required',
+            'answer' => 'required',
+        ]);
         $faq = new Faq();
         $faq->category = $req->category;
         $faq->question = $req->question;
@@ -38,6 +43,11 @@ class FaqController extends Controller
         return view('admin/faq/add',compact('url','faq','category'));
     }
     public function update(Request $req, $id){
+        $req->validate([
+            'category' => 'required',
+            'question' => 'required',
+            'answer' => 'required',
+        ]);
         $faq = Faq::find($id);
         $faq->category = $req->category;
         $faq->question = $req->question;

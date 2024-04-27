@@ -20,6 +20,9 @@
                                     <form action="{{ $url }}" method="post">
                                     @csrf
                                         <textarea id="elm1" name="content" id="content">@if(isset($about->content)){{$about->content}}@else{{old('content')}}@endif</textarea>
+                                        @if ($errors->has('content'))
+                                                <span class="text-danger">{{ $errors->first('content') }}</span>
+                                            @endif
                                         <div class="row mt-3">
                                             <div class="col-md-8">
                                                 <div class="mb-3">

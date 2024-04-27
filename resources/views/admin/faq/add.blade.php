@@ -19,46 +19,43 @@ FAQ Add
                         <div class="mt-4">
                             {{--  <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Form groups</h5>  --}}
 
-                            <form class="needs-validation" novalidate action="{{ $url }}" method="POST">
+                            <form action="{{ $url }}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class=" form-label">Category</label>
-                                            <select class="form-select" name="category" id="category" required>
+                                            <select class="form-select" name="category" id="category">
                                                 <option value="">Select</option>
                                                 @foreach($category as $cat)
-   <option value="{{ $cat->id }}"
-       @if(isset($faq) && $faq && $cat->id == $faq->category)
-           selected
-       @endif
-   >{{ $cat->category_name }}</option>
-@endforeach
-   </select>
-
-
-
-                                            <div class="invalid-feedback">
-                                               Please select category
-                                            </div>
+                                                    <option value="{{ $cat->id }}"
+                                                        @if(isset($faq) && $faq && $cat->id == $faq->category)
+                                                            selected
+                                                        @endif
+                                                    >{{ $cat->category_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @if ($errors->has('category'))
+                                                <span class="text-danger">{{ $errors->first('category') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="formrow-password-input">Question</label>
-                                            <input required type="text" class="form-control" name="question" id="question" placeholder="Enter your question" value="@if(isset($faq->question)){{ $faq->question }}@else{{ old('question')}}@endif">
-                                           <div class="invalid-feedback">
-                                                Please provide question.
-                                            </div>
+                                            <input type="text" class="form-control" name="question" id="question" placeholder="Enter your question" value="@if(isset($faq->question)){{ $faq->question }}@else{{ old('question')}}@endif">
+                                            @if ($errors->has('question'))
+                                                <span class="text-danger">{{ $errors->first('question') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="formrow-password-input">Answer</label>
-                                            <input required type="text" class="form-control" name="answer" id="answer" placeholder="Enter your answer" value="@if(isset($faq->answer)){{ $faq->answer }}@else{{ old('answer')}}@endif">
-                                           <div class="invalid-feedback">
-                                                Please provide answer.
-                                            </div>
+                                            <input type="text" class="form-control" name="answer" id="answer" placeholder="Enter your answer" value="@if(isset($faq->answer)){{ $faq->answer }}@else{{ old('answer')}}@endif">
+                                            @if ($errors->has('answer'))
+                                                <span class="text-danger">{{ $errors->first('answer') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

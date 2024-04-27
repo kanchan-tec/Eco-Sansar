@@ -18,6 +18,9 @@ class CategoryController extends Controller
         return view('admin/category/add',compact('url'));
    }
    public function save(Request $req){
+    $req->validate([
+        'category_name' => 'required',
+    ]);
     $category = new Category();
     $category->category_name = $req->category_name;
     $category->save();
@@ -30,6 +33,9 @@ class CategoryController extends Controller
     return view('admin/category/add',compact('url','category'));
    }
    public function update(Request $req, $id){
+    $req->validate([
+        'category_name' => 'required',
+    ]);
     $category = Category::find($id);
     $category->category_name = $req->category_name;
     $category->save();

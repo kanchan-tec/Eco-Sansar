@@ -23,7 +23,9 @@ Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index'])
 Route::controller(IndexController::class)->group(function(){
     Route::get('/','index');
     Route::get('user_register', 'user_register')->name('user_register');
-
+    Route::post('business_save','business_save')->name('business.save');
+    Route::post('sab_save','sab_save')->name('sab.save');
+    Route::post('consumer_save','consumer_save')->name('consumer.save');
 });
 
 Auth::routes();
@@ -37,10 +39,12 @@ Auth::routes();
 
 // Route::post('/formsubmit', [App\Http\Controllers\HomeController::class, 'FormSubmit'])->name('FormSubmit');
 
-Route::get('/admin_login', [App\Http\Controllers\admin\AuthController::class, 'admin_login']);
+Route::get('/admin_login', [App\Http\Controllers\admin\AuthController::class, 'admin_login'])->name('admin_login');
 Route::post('/admin_store', [App\Http\Controllers\admin\AuthController::class, 'admin_store'])->name('admin_store');
 Route::get('/admin_dashboard', [App\Http\Controllers\admin\AuthController::class, 'admin_dashboard'])->name('admin_dashboard');
 Route::get('/admin_logout', [App\Http\Controllers\admin\AuthController::class, 'signOut'])->name('admin.admin_logout');
+Route::get('/admin_profile/{id}', [App\Http\Controllers\admin\AuthController::class, 'admin_profile'])->name('admin.admin_profile');
+Route::post('/admin_profile_update/{id}', [App\Http\Controllers\admin\AuthController::class, 'admin_profile_update'])->name('admin_profile_update');
 
 
 Route::controller(ContactController::class)->group(function(){

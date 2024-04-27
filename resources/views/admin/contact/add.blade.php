@@ -20,36 +20,36 @@ Contact Add
                         <div class="mt-4">
                             {{--  <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Form groups</h5>  --}}
 
-                            <form class="needs-validation" novalidate action="{{ $url }}" Method="POST">
+                            <form action="{{ $url }}" Method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="email">Email</label>
-                                            <input required type="text" class="form-control" value="@if (isset($contact->email)) {{ $contact->email }} @endif" name="email" id="email" placeholder="Enter your Email">
-                                            <div class="invalid-feedback">
-                                               Please Enter Email.
-                                            </div>
+                                            <input type="text" class="form-control" value="@if (isset($contact->email)) {{ $contact->email }} @endif" name="email" id="email" placeholder="Enter your Email">
+                                            @if ($errors->has('email'))
+                                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="mobile">Mobile</label>
-                                            <input required type="text" class="form-control" value="@if (isset($contact->mobile)) {{ $contact->mobile }} @endif" name="mobile" id="mobile" placeholder="Enter your Mobile">
-                                           <div class="invalid-feedback">
-                                                Please Enter Mobile.
-                                            </div>
+                                            <input type="text" class="form-control" value="@if (isset($contact->mobile)) {{ $contact->mobile }} @endif" name="mobile" id="mobile" placeholder="Enter your Mobile">
+                                            @if ($errors->has('mobile'))
+                                                <span class="text-danger">{{ $errors->first('mobile') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Address</label>
                                               <div>
-                                                  <textarea required class="form-control" name="address" id="address" rows="5">@if (isset($contact->address)) {{ $contact->address }} @endif</textarea>
+                                                  <textarea class="form-control" name="address" id="address" rows="5">@if (isset($contact->address)) {{ $contact->address }} @endif</textarea>
                                               </div>
-                                           <div class="invalid-feedback">
-                                                Please provide Address.
-                                            </div>
+                                              @if ($errors->has('address'))
+                                                <span class="text-danger">{{ $errors->first('address') }}</span>
+                                              @endif
                                         </div>
                                     </div>
 
@@ -57,11 +57,11 @@ Contact Add
                                         <div class="mb-3">
                                             <label class="form-label">Google Map</label>
                                               <div>
-                                                  <textarea required class="form-control" name="map" id="map" rows="5">@if (isset($contact->map)) {{ $contact->map }} @endif</textarea>
+                                                  <textarea  class="form-control" name="map" id="map" rows="5">@if (isset($contact->map)) {{ $contact->map }} @endif</textarea>
                                               </div>
-                                           <div class="invalid-feedback">
-                                                Please provide Map Address.
-                                            </div>
+                                              @if ($errors->has('map'))
+                                                <span class="text-danger">{{ $errors->first('map') }}</span>
+                                             @endif
                                         </div>
                                     </div>
                                 </div>

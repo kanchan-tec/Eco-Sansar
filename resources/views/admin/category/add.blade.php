@@ -19,16 +19,16 @@ Category Add
                         <div class="mt-4">
                             {{--  <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Form groups</h5>  --}}
 
-                            <form class="needs-validation" novalidate action="{{ $url }}" method="POST">
+                            <form action="{{ $url }}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="formrow-password-input">Category</label>
-                                            <input required type="text" class="form-control" name="category_name" id="category_name" placeholder="Category" value="@if(isset($category->category_name)){{ $category->category_name }}@else{{ old('category_name')}}@endif">
-                                           <div class="invalid-feedback">
-                                                Please provide question.
-                                            </div>
+                                            <input type="text" class="form-control" name="category_name" id="category_name" placeholder="Category" value="@if(isset($category->category_name)){{ $category->category_name }}@else{{ old('category_name')}}@endif">
+                                            @if ($errors->has('category_name'))
+                                                <span class="text-danger">{{ $errors->first('category_name') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

@@ -23,7 +23,7 @@
 
                         <div class="card-body p-4">
                             <div class="text-center mt-2">
-                                <h5 class="text-primary">Welcome</h5>
+                                <h5 class="text-primary">Welcomeeeee</h5>
 
                             </div>
                             <div class="p-2 mt-4">
@@ -33,7 +33,7 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="email">Email</label>
                                         <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                            name="email" value="{{ old('email', 'admin@themesbrand.com') }}" id="email"
+                                            name="email"  id="email"
                                             placeholder="Enter Email address">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="userpassword">Password</label>
                                         <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                            value="12345678" name="password" id="userpassword" placeholder="Enter password">
+                                             name="password" id="userpassword" placeholder="Enter password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -57,7 +57,7 @@
                                         <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Log
                                             In</button>
                                     </div>
-                                    
+
                                 </form>
                             </div>
 

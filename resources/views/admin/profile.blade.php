@@ -24,11 +24,10 @@ Profile Edit
                             <form class="needs-validation" novalidate action="{{ $url }}" method="POST">
                                 @csrf
                                 <div class="row">
-
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Name</label>
-                                            <input required type="text" class="form-control" name="name" id="name"   value="@if(isset($user->name)){{ $user->name }}@else{{ old('name')}}@endif">
+                                            <label class="form-label" for="formrow-password-input">First Name</label>
+                                            <input required type="text" class="form-control" name="first_name" id="first_name"   value="@if(isset($user->first_name)){{ $user->first_name }}@else{{ old('first_name')}}@endif">
                                            <div class="invalid-feedback">
                                                 Please provide question.
                                             </div>
@@ -36,10 +35,10 @@ Profile Edit
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Phone Number</label>
-                                            <input required type="text" class="form-control" name="phone_no" id="phone_no"   value="@if(isset($user->phone_no)){{ $user->phone_no }}@else{{ old('phone_no')}}@endif">
+                                            <label class="form-label" for="formrow-password-input">Last Name</label>
+                                            <input required type="text" class="form-control" name="last_name" id="last_name"   value="@if(isset($user->last_name)){{ $user->last_name }}@else{{ old('last_name')}}@endif">
                                            <div class="invalid-feedback">
-                                                Please provide answer.
+                                                Please provide question.
                                             </div>
                                         </div>
                                     </div>
@@ -50,6 +49,13 @@ Profile Edit
                                            <div class="invalid-feedback">
                                                 Please provide answer.
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formrow-password-input">Password</label>
+                                            <input  type="password" class="form-control" name="password" id="password"   value="{{ isset($user) ? '' : old('password') }}">
+
                                         </div>
                                     </div>
                                 </div>
