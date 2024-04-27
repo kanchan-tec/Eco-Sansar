@@ -201,7 +201,7 @@
                 <!--end primary-nav-->
                 <div class="secondary-nav">
                     <a href="#" data-modal-external-file="modal_sign_in.php" data-target="modal-sign-in">Sign In</a>
-                    <a href="{{ route('user_register') }}" class="promoted" >Register</a>
+                    <a href="{{ route('user_type') }}" class="promoted" >Register</a>
                 </div>
                 <!--end secondary-nav-->
                 <a href="#" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" data-modal-external-file="modal_submit.php" data-target="modal-submit"><i class="fa fa-plus"></i><span>Add listing</span></a>

@@ -18,7 +18,12 @@ class IndexController extends Controller
     {
         return view('frontend/auth/register');
     }
-
+    public function user_type(){
+        return view('frontend/auth/usertype');
+    }
+    public function business_add(){
+        return view('frontend/auth/businessadd');
+    }
     public function business_save(Request $req)
     {
         $req->validate([

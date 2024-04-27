@@ -23,6 +23,8 @@ Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index'])
 Route::controller(IndexController::class)->group(function(){
     Route::get('/','index');
     Route::get('user_register', 'user_register')->name('user_register');
+    Route::get('user_type', 'user_type')->name('user_type');
+    Route::get('business_add', 'business_add')->name('business_add');
     Route::post('business_save','business_save')->name('business.save');
     Route::post('sab_save','sab_save')->name('sab.save');
     Route::post('consumer_save','consumer_save')->name('consumer.save');
