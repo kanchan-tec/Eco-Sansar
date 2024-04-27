@@ -12,7 +12,7 @@
                     <section id="sab" >
                         <form class="form inputs-underline" action="{{ route('sab.save') }}" method="post">
                             @csrf
-                            <input type="text" name="user_type" value="sab">
+                            <input type="hidden" name="user_type" value="sab">
                             <div class="row">
 
                                     <div class="form-group">
@@ -56,9 +56,10 @@
                                     <!--end form-group-->
                                 </div>
                             <!--end form-group-->
-                            <div class="form-group center">
-                                <button type="submit" class="btn btn-primary width-100">Register Now</button>
-                            </div>
+                            <div class="text-center ">
+                                <button type="submit" class="btn btn-primary ">Register Now</button>
+                                <a href="{{route('user_type')}}" class="btn btn-primary " style="padding: 13px;margin-top: -2px;margin-left:40px">Back</a>
+                                </div>
                             <!--end form-group-->
                         </form>
 
