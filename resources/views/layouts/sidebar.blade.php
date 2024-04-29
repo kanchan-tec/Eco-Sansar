@@ -89,7 +89,7 @@
 
                     </ul>
                 </li>
-                <li>
+                {{--  <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-store"></i>
                         <span>Users</span>
@@ -100,8 +100,27 @@
                        <li><a href="{{ route('user.consumerlist') }}">Consumer</a></li>
 
                     </ul>
-                </li>
+                </li>  --}}
 
+                <li class="menu-title">Users</li>
+                <li>
+                    <a href="{{ route('user.businesslist') }}" class="waves-effect">
+                        <i class="uil-calender"></i>
+                        <span>Business</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.sablist') }}" class="waves-effect">
+                        <i class="uil-calender"></i>
+                        <span>SAB</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.consumerlist') }}" class="waves-effect">
+                        <i class="uil-calender"></i>
+                        <span>Consumer</span>
+                    </a>
+                </li>
 
                 {{--
 

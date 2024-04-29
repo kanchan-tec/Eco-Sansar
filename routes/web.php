@@ -50,6 +50,8 @@ Route::get('/admin_dashboard', [App\Http\Controllers\admin\AuthController::class
 Route::get('/admin_logout', [App\Http\Controllers\admin\AuthController::class, 'signOut'])->name('admin.admin_logout');
 Route::get('/admin_profile/{id}', [App\Http\Controllers\admin\AuthController::class, 'admin_profile'])->name('admin.admin_profile');
 Route::post('/admin_profile_update/{id}', [App\Http\Controllers\admin\AuthController::class, 'admin_profile_update'])->name('admin_profile_update');
+Route::get('/changepassword/{id}', [App\Http\Controllers\admin\AuthController::class, 'changepassword'])->name('changepassword');
+Route::post('/changepassword_store/{id}', [App\Http\Controllers\admin\AuthController::class, 'changepassword_store'])->name('changepassword_store');
 
 Route::controller(AdminController::class)->group(function(){
     Route::get('user/businesslist','businesslist')->name('user.businesslist');

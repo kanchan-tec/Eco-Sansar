@@ -21,7 +21,7 @@ Profile Edit
 
 
 
-                            <form class="needs-validation" novalidate action="{{ $url }}" method="POST">
+                            <form class="needs-validation" novalidate action="{{ $url }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
@@ -51,11 +51,25 @@ Profile Edit
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    {{--  <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="formrow-password-input">Password</label>
                                             <input  type="password" class="form-control" name="password" id="password"   value="{{ isset($user) ? '' : old('password') }}">
 
+                                        </div>
+                                    </div>  --}}
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="formrow-password-input">Profile picture</label> <br>
+                                            @if(Auth::user()->profile_pic)
+                                            <img src="{{ asset('assets/images/Adminprofile/' . $user->profile_pic) }}" alt="Current Profile Image" class="img-thumbnail mb-2" style="max-width: 200px;">
+                                        @else
+                                            <p>No profile image available.</p>
+                                        @endif
+                                            <input required type="file" class="form-control" name="profile_pic" id="profile_pic" >
+                                           <div class="invalid-feedback">
+                                                Please provide answer.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
