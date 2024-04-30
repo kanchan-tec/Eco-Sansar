@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Session;
 use Auth;
 use App\Models\User;
+use App\Rules\MatchOldPassword;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 
@@ -81,23 +82,25 @@ class AuthController extends Controller
             return view('admin/changepassword');
         }
         public function changePassword_store(Request $request)
-{
-    $request->validate([
-        'current_password' => 'required',
-        'new_password' => 'required|string|min:8|confirmed',
-    ]);
+        {
+            // echo "<pre>";
+            // print_r($request->all());die;
+            $request->validate([
+                'password' => ['required', new MatchOldPassword],
+                'new_password' => ['required','min:8',],
+                'confirm_password' => ['same:new_password'],
+            ]);
+  
+            $valuerpass = User::find(Auth::id());
+            $valuerpass->password=$request->password;
+            $valuerpass->password=$request->new_password;
+            $valuerpass->password=Hash::make($request->confirm_password);
+            $valuerpass->save();
 
-    $user = Auth::user();
+            Alert::success('Success','Password Updated Successfully');
+             return redirect()->route('admin_dashboard');
+        }
 
-    if (!Hash::check($request->current_password, $user->password)) {
-        return redirect()->back()->with('error', 'The current password is incorrect.');
-    }
-
-    $user->password = Hash::make($request->new_password);
-    $user->save();
-
-    return redirect()->back()->with('success', 'Password changed successfully.');
-}
      public function signOut() {
         Session::flush();
         Auth::logout();
