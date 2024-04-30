@@ -9,7 +9,7 @@
                 <div class="col-lg-12">
                     <div class="text-center">
                         <a href="{{ url('index') }}" class="mb-5 d-block auth-logo">
-                            <img src="{{ URL::asset('/assets/images/logo-dark.png') }}" alt="" height="22"
+                            <img src="{{ URL::asset('/assets/images/logo-lg.png') }}" alt="" height="50"
                                 class="logo logo-dark">
                             <img src="{{ URL::asset('/assets/images/logo-light.png') }}" alt="" height="22"
                                 class="logo logo-light">
@@ -23,7 +23,7 @@
 
                         <div class="card-body p-4">
                             <div class="text-center mt-2">
-                                <h5 class="text-primary">Welcomeeeee</h5>
+                                <h5 class="text-primary">Welcome</h5>
 
                             </div>
                             <div class="p-2 mt-4">

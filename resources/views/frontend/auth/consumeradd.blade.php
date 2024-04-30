@@ -16,7 +16,7 @@
                             <div class="row">
 
                                     <div class="form-group">
-                                        <label for="first_name"> Name</label>
+                                        <label for="first_name"> Name<span style="color:red;">*</span></label>
                                         <input type="text" class="form-control" name="name" id="name" placeholder="Name">
                                     </div>
                                     <!--end form-group-->
@@ -24,7 +24,7 @@
                                 <!--end col-md-6-->
 
                                     <div class="form-group">
-                                        <label for="last_name">Phone number </label>
+                                        <label for="last_name">Phone number<span style="color:red;">*</span> </label>
                                         <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number">
                                     </div>
                                     <!--end form-group-->
@@ -33,17 +33,17 @@
 
                             <!--enr row-->
                             <div class="form-group">
-                                <label for="email">Address</label>
+                                <label for="email">Address<span style="color:red;">*</span></label>
                                 <input type="text" class="form-control" name="address" id="address" placeholder="Address">
                             </div>
                             <!--end form-group-->
                             <div class="form-group">
-                                <label for="password">Pincode</label>
+                                <label for="password">Pincode<span style="color:red;">*</span></label>
                                 <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode">
                             </div>
                             <!--end form-group-->
                             <div class="form-group">
-                            <label class=" form-label">Type of residences</label>
+                            <label class=" form-label">Type of residences<span style="color:red;">*</span></label>
                                             <select class="form-select" name="type_of_residences" id="type_of_residences" required>
                                                 <option value="">Select</option>
                                                 <option  value="General Inquiry">General Inquiry</option>
@@ -51,7 +51,7 @@
                                             </select>
                             </div>
                             <div class="form-group">
-                                <label for="confirm_password">Email id</label>
+                                <label for="confirm_password">Email id<span style="color:red;">*</span></label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                             </div>
                         </div>

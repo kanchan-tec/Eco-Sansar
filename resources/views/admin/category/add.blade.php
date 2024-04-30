@@ -24,7 +24,7 @@ Category Add
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Category name</label>
+                                            <label class="form-label" for="formrow-password-input">Category name<span style="color:red;">*</span></label>
                                             <input type="text" class="form-control" name="category_name" id="category_name" placeholder="Category name" value="@if(isset($category->category_name)){{ $category->category_name }}@else{{ old('category_name')}}@endif">
                                             @if ($errors->has('category_name'))
                                                 <span class="text-danger">{{ $errors->first('category_name') }}</span>

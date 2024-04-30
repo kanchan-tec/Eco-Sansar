@@ -25,7 +25,7 @@ Contact Add
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="email">Email</label>
+                                            <label class="form-label" for="email">Email<span style="color:red;">*</span></label>
                                             <input required type="text" class="form-control" value="@if (isset($contact->email)) {{ $contact->email }} @endif" name="email" id="email" placeholder="Enter your Email">
                                             <div class="invalid-feedback">
                                                Please Enter Email.
@@ -34,7 +34,7 @@ Contact Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="mobile">Mobile</label>
+                                            <label class="form-label" for="mobile">Mobile<span style="color:red;">*</span></label>
                                             <input required type="text" class="form-control" value="@if (isset($contact->mobile)) {{ $contact->mobile }} @endif" name="mobile" id="mobile" placeholder="Enter your Mobile">
                                            <div class="invalid-feedback">
                                                 Please Enter Mobile.
@@ -43,7 +43,7 @@ Contact Add
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Address</label>
+                                            <label class="form-label">Address<span style="color:red;">*</span></label>
                                               <div>
                                                   <textarea required class="form-control" name="address" id="address" rows="5">@if (isset($contact->address)) {{ $contact->address }} @endif</textarea>
                                               </div>
@@ -55,7 +55,7 @@ Contact Add
 
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Google Map</label>
+                                            <label class="form-label">Google Map<span style="color:red;">*</span></label>
                                               <div>
                                                   <textarea required class="form-control" name="map" id="map" rows="5">@if (isset($contact->map)) {{ $contact->map }} @endif</textarea>
                                               </div>
@@ -66,8 +66,8 @@ Contact Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="facebook">Facebook</label>
-                                            <input required type="text" class="form-control" value="@if (isset($contact->facebook)) {{ $contact->facebook }} @endif" name="facebook" id="facebook" placeholder="Enter Your Facebook Page Url">
+                                            <label class="form-label" for="facebook">Facebook<span style="color:red;">*</span></label>
+                                            <input required type="text" class="form-control" value="@if (isset($contact->facebook)) {{ $contact->facebook }} @endif" name="facebook" id="facebook" value="">
                                             <div class="invalid-feedback">
                                                Please Enter Your Facebook Page Url.
                                             </div>
@@ -75,7 +75,7 @@ Contact Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="insta">Instagram</label>
+                                            <label class="form-label" for="insta">Instagram<span style="color:red;">*</span></label>
                                             <input required type="text" class="form-control" value="@if (isset($contact->insta)) {{ $contact->insta }} @endif" name="insta" id="insta" placeholder="Enter Your Instagram Page Url">
                                            <div class="invalid-feedback">
                                                 Please Enter Your Instagram page Url.
@@ -84,7 +84,7 @@ Contact Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="twitter">Twitter</label>
+                                            <label class="form-label" for="twitter">Twitter<span style="color:red;">*</span></label>
                                             <input required type="text" class="form-control" value="@if (isset($contact->twitter)) {{ $contact->twitter }} @endif" name="twitter" id="twitter" placeholder="Enter Your Twitter Page Url">
                                             <div class="invalid-feedback">
                                                Please Enter Your Twitter Page Url.
@@ -93,7 +93,7 @@ Contact Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="linkedin">LinkedIn</label>
+                                            <label class="form-label" for="linkedin">LinkedIn<span style="color:red;">*</span></label>
                                             <input required type="text" class="form-control" value="@if (isset($contact->linkedin)) {{ $contact->linkedin }} @endif" name="linkedin" id="linkedin" placeholder="Enter Your LinkedIn page Url">
                                            <div class="invalid-feedback">
                                                 Please Enter Your LinkedIn page Url.
@@ -102,7 +102,7 @@ Contact Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="utube">Youtube</label>
+                                            <label class="form-label" for="utube">Youtube<span style="color:red;">*</span></label>
                                             <input required type="text" class="form-control" value="@if (isset($contact->utube)) {{ $contact->utube }} @endif" name="utube" id="utube" placeholder="Enter Your Youtube page Url">
                                            <div class="invalid-feedback">
                                                 Please Enter Your Youtube page Url.

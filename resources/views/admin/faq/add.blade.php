@@ -24,7 +24,7 @@ FAQ Add
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class=" form-label">Category</label>
+                                            <label class=" form-label">Category<span style="color:red;">*</span></label>
                                             <select class="form-select" name="category" id="category">
                                                 <option value="">Select</option>
                                                 @foreach($category as $cat)
@@ -42,7 +42,7 @@ FAQ Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Question</label>
+                                            <label class="form-label" for="formrow-password-input">Question<span style="color:red;">*</span></label>
                                             <input type="text" class="form-control" name="question" id="question" placeholder="Enter your question" value="@if(isset($faq->question)){{ $faq->question }}@else{{ old('question')}}@endif">
                                             @if ($errors->has('question'))
                                                 <span class="text-danger">{{ $errors->first('question') }}</span>
@@ -51,7 +51,7 @@ FAQ Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Answer</label>
+                                            <label class="form-label" for="formrow-password-input">Answer<span style="color:red;">*</span></label>
                                             <input type="text" class="form-control" name="answer" id="answer" placeholder="Enter your answer" value="@if(isset($faq->answer)){{ $faq->answer }}@else{{ old('answer')}}@endif">
                                             @if ($errors->has('answer'))
                                                 <span class="text-danger">{{ $errors->first('answer') }}</span>

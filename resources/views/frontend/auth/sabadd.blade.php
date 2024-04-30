@@ -16,14 +16,14 @@
                             <div class="row">
 
                                     <div class="form-group">
-                                        <label for="name">  Name</label>
+                                        <label for="name">  Name<span style="color:red;">*</span></label>
                                         <input type="text" class="form-control" name="name" id="name" placeholder=" Name">
                                     </div>
                                     <!--end form-group-->
 
 
                                     <div class="form-group">
-                                        <label for="mobile">Phone number </label>
+                                        <label for="mobile">Phone number<span style="color:red;">*</span> </label>
                                         <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number">
                                     </div>
                                     <!--end form-group-->
@@ -31,26 +31,26 @@
                                 <!--end col-md-6-->
 
                                 <div class="form-group">
-                                    <label for="address">Location</label>
+                                    <label for="address">Location<span style="color:red;">*</span></label>
                                     <input type="text" class="form-control" name="address" id="address" placeholder="Location">
                                 </div>
                                 <!--end form-group-->
                                 <div class="form-group">
-                                    <label for="pincode">Pincode</label>
+                                    <label for="pincode">Pincode<span style="color:red;">*</span></label>
                                     <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode">
                                 </div>
                                 <!--end form-group-->
                                 <!--end col-md-6-->
 
                                     <div class="form-group">
-                                        <label for="latitude">Latitude </label>
+                                        <label for="latitude">Latitude<span style="color:red;">*</span> </label>
                                         <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude">
                                     </div>
                                     <!--end form-group-->
 
 
                                     <div class="form-group">
-                                        <label for="longitude">Longitude </label>
+                                        <label for="longitude">Longitude<span style="color:red;">*</span> </label>
                                         <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude">
                                     </div>
                                     <!--end form-group-->

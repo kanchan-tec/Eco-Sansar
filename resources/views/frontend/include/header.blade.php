@@ -26,7 +26,7 @@
     <header id="page-header">
         <nav>
             <div class="left">
-                <a href="index.html" class="brand"><img src="frontend/assets/img/logo.png" alt=""></a>
+                <a href="/" class="brand"><img src="assets/images/logo-lg.png" alt="" height="50"></a>
             </div>
             <!--end left-->
             <div class="right">
