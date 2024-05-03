@@ -8,7 +8,8 @@ use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\frontend\IndexController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\AdminController;
-
+use App\Http\Controllers\admin\ResourceController;
+use App\Http\Controllers\admin\WeightController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,24 @@ Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index'])
 
 Route::controller(IndexController::class)->group(function(){
     Route::get('/','index');
+    Route::get('business_login', 'business_login')->name('business_login');
+    Route::post('business_store','business_store')->name('business.store');
+    Route::get('business_details','business_details')->name('business_details');
+    Route::post('business_post_save','business_post_save')->name('business_post_save');
+    Route::get('business_posts','business_posts')->name('business_posts');
+    Route::get('sab_login', 'sab_login')->name('sab_login');
+    Route::post('sab_store','sab_store')->name('sab.store');
+    Route::get('sab_posts','sab_posts')->name('sab_posts');
+    Route::get('sab_details','sab_details')->name('sab_details');
+    Route::post('sab_post_save','sab_post_save')->name('sab_post_save');
+    Route::get('consumer_login', 'consumer_login')->name('consumer_login');
+    //Route::post('send_otp','sendOtp')->name('send_otp');
+    Route::post('consumer_store','consumer_store')->name('consumer.store');
+    Route::get('consumer_posts','consumer_posts')->name('consumer_posts');
+    Route::get('consumer_details','consumer_details')->name('consumer_details');
+    Route::post('consumer_post_save','consumer_post_save')->name('consumer_post_save');
+    Route::get('consumer_listing_details/{id}','consumer_listing_details')->name('consumer_listing_details');
+
     Route::get('user_register', 'user_register')->name('user_register');
     Route::get('user_type', 'user_type')->name('user_type');
     Route::get('business_add', 'business_add')->name('business_add');
@@ -31,6 +50,7 @@ Route::controller(IndexController::class)->group(function(){
     Route::post('business_save','business_save')->name('business.save');
     Route::post('sab_save','sab_save')->name('sab.save');
     Route::post('consumer_save','consumer_save')->name('consumer.save');
+    Route::get('/user_logout', 'signOut')->name('user_logout');
 });
 
 Auth::routes();
@@ -96,4 +116,20 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('category/edit/{id}','edit')->name('category.edit');
     Route::post('category/update/{id}','update')->name('category.update');
     Route::get('category/delete/{id}','delete')->name('category.delete');
+});
+Route::controller(ResourceController::class)->group(function(){
+    Route::get('resource/list','list')->name('resource.list');
+    Route::get('resource/add', 'add')->name('resource.add');
+    Route::post('resource/save','save')->name('resource.save');
+    Route::get('resource/edit/{id}','edit')->name('resource.edit');
+    Route::post('resource/update/{id}','update')->name('resource.update');
+    Route::get('resource/delete/{id}','delete')->name('resource.delete');
+});
+Route::controller(WeightController::class)->group(function(){
+    Route::get('weight/list','list')->name('weight.list');
+    Route::get('weight/add', 'add')->name('weight.add');
+    Route::post('weight/save','save')->name('weight.save');
+    Route::get('weight/edit/{id}','edit')->name('weight.edit');
+    Route::post('weight/update/{id}','update')->name('weight.update');
+    Route::get('weight/delete/{id}','delete')->name('weight.delete');
 });

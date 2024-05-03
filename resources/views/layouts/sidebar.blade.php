@@ -36,7 +36,7 @@
 
                 <li>
                     <a href="{{route('admin_dashboard')}}">
-                        <i class="uil-home-alt"></i><span class="badge rounded-pill bg-primary float-end">01</span>
+                        <i class="uil-home-alt"></i> 
                         <span>@lang('translation.Dashboard')</span>
                     </a>
                 </li>
@@ -85,6 +85,19 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('category.list') }}">Category</a></li>
                        <li><a href="{{ route('faq.list') }}">FAQs</a></li>
+
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-store"></i>
+                        <span>Settings</span>
+                    </a>
+
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('resource.list') }}">Resource</a></li>
+                       <li><a href="{{ route('weight.list') }}">Weight</a></li>
 
 
                     </ul>

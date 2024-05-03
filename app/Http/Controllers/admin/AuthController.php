@@ -33,8 +33,8 @@ class AuthController extends Controller
                           'password' => 'You have entered an incorrect password,',
                       ]);
                   }
-              }
-              public function admin_dashboard (){
+        }
+        public function admin_dashboard (){
                 return view('index');
         }
         public function admin_profile($id)
@@ -90,7 +90,7 @@ class AuthController extends Controller
                 'new_password' => ['required','min:8',],
                 'confirm_password' => ['same:new_password'],
             ]);
-  
+
             $valuerpass = User::find(Auth::id());
             $valuerpass->password=$request->password;
             $valuerpass->password=$request->new_password;

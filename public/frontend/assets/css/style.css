@@ -392,7 +392,7 @@ body .secondary-nav ul.navigation li.has-child > .wrapper > .nav-wrapper > ul > 
   display: inline-block;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 15px;
   color: #1f1f1f;
   margin: 0;
   border: 2px solid transparent;
@@ -5236,7 +5236,7 @@ section:not(.block) h2 {
   background-color: #4611a7;
   padding: 8px 0;
   color: #fff;
-  font-size: 12px;
+  font-size: 16px;
 }
 #page-footer .footer-navigation a {
   color: #fff;
@@ -6586,7 +6586,7 @@ input[type="date"]::-webkit-input-placeholder {
   padding-bottom: 4px;
 }
 .btn.btn-small {
-  padding: 3px 8px;
+  padding: 10px 20px;
 }
 .btn.btn-xs {
   font-size: 10px;
@@ -7350,7 +7350,7 @@ form .status i {
 .form.inputs-underline label:not(.no-margin), .input-group.inputs-underline label:not(.no-margin) {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
   opacity: 0.7;
-  font-size: 10px;
+  font-size: 16px;
   font-weight: 800;
   text-transform: uppercase;
   margin-bottom: 0;
@@ -7616,7 +7616,7 @@ select:hover, select.form-control:hover {
 }
 */
 .form-control {
-  border: 0px solid red;
+  /* border: 0px solid red; */
   padding: 0;
 }
 
@@ -8101,4 +8101,17 @@ body::before {
     right: 0;
     margin: auto;
   }
+}
+
+.ultext{
+    font-size: 18px;;
+}
+.ultop{
+    margin-top:50px;
+}
+.nav-tabs {
+    border-bottom: none; /* Remove the border */
+}
+.intop{
+    margin-top:15px;
 }
