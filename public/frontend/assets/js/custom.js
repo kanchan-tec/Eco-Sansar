@@ -54,7 +54,7 @@ $(document).ready(function($) {
 // Render hero search form ---------------------------------------------------------------------------------------------
 
     $("select").on("rendered.bs.select", function () {
-        $('head').append( $('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/bootstrap-select.min.css') );
+        $('head').append( $('<link rel="stylesheet" type="text/css">').attr('href', 'frontend/assets/css/bootstrap-select.min.css') );
         if( !viewport.is('xs') ){
             $(".search-form.vertical").css( "top", ($(".hero-section").height()/2) - ($(".search-form .wrapper").height()/2) );
         }
@@ -392,7 +392,7 @@ function openModal(target, modalPath, clusterData, mapsFullScreen){
             data: { id: target, marker_in_cluster_id: clusterData },
             success: function(results){
                 _this.append(results);
-                $('head').append( $('<link rel="stylesheet" type="text/css">').attr('href', 'assets/css/bootstrap-select.min.css') );
+                $('head').append( $('<link rel="stylesheet" type="text/css">').attr('href', 'frontend/assets/css/bootstrap-select.min.css') );
                 $(".selectpicker").selectpicker();
 
                 if( $("input[type=file]").length ){

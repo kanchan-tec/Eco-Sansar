@@ -24,16 +24,22 @@ Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index'])
 
 Route::controller(IndexController::class)->group(function(){
     Route::get('/','index');
+    Route::get('listings','listings')->name('listings');
+    Route::get('con_listing_details/{id}','con_listing_details')->name('con_listing_details');
+    Route::get('sabs_listing_details/{id}','sabs_listing_details')->name('sabs_listing_details');
+    Route::get('bus_listing_details/{id}','bus_listing_details')->name('bus_listing_details');
     Route::get('business_login', 'business_login')->name('business_login');
     Route::post('business_store','business_store')->name('business.store');
     Route::get('business_details','business_details')->name('business_details');
     Route::post('business_post_save','business_post_save')->name('business_post_save');
+    Route::get('business_listing_details/{id}','business_listing_details')->name('business_listing_details');
     Route::get('business_posts','business_posts')->name('business_posts');
     Route::get('sab_login', 'sab_login')->name('sab_login');
     Route::post('sab_store','sab_store')->name('sab.store');
     Route::get('sab_posts','sab_posts')->name('sab_posts');
     Route::get('sab_details','sab_details')->name('sab_details');
     Route::post('sab_post_save','sab_post_save')->name('sab_post_save');
+    Route::get('sab_listing_details/{id}','sab_listing_details')->name('sab_listing_details');
     Route::get('consumer_login', 'consumer_login')->name('consumer_login');
     //Route::post('send_otp','sendOtp')->name('send_otp');
     Route::post('consumer_store','consumer_store')->name('consumer.store');
@@ -76,10 +82,16 @@ Route::post('/changepassword_store', [App\Http\Controllers\admin\AuthController:
 Route::controller(AdminController::class)->group(function(){
     Route::get('user/businesslist','businesslist')->name('user.businesslist');
     Route::get('user/sablist','sablist')->name('user.sablist');
+    Route::get('user/sabposts','sabposts')->name('user.sabposts');
+    Route::get('user/sabpostsview/{id}','sabpostsview')->name('user.sabpostsview');
     Route::get('user/consumerlist','consumerlist')->name('user.consumerlist');
+    Route::get('user/consumerposts','consumerposts')->name('user.consumerposts');
+    Route::get('user/consumerpostsview/{id}','consumerpostsview')->name('user.consumerpostsview');
     Route::get('user/businessview/{id}','businessview')->name('user.businessview');
     Route::get('user/sabview/{id}','sabview')->name('user.sabview');
     Route::get('user/consumerview/{id}','consumerview')->name('user.consumerview');
+    Route::get('user/businessposts','businessposts')->name('user.businessposts');
+    Route::get('user/businesspostsview/{id}','businesspostsview')->name('user.businesspostsview');
 });
 
 Route::controller(ContactController::class)->group(function(){

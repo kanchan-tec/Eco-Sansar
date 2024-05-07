@@ -36,7 +36,7 @@
 
                 <li>
                     <a href="{{route('admin_dashboard')}}">
-                        <i class="uil-home-alt"></i> 
+                        <i class="uil-home-alt"></i>
                         <span>@lang('translation.Dashboard')</span>
                     </a>
                 </li>
@@ -117,22 +117,40 @@
 
                 <li class="menu-title">Users</li>
                 <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-store"></i>
+                        <span>Business</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('user.businesslist') }}">Business list</a></li>
+                       <li><a href="{{ route('user.businessposts') }}">Business post</a></li>
+                    </ul>
+                </li>
+                {{--  <li>
                     <a href="{{ route('user.businesslist') }}" class="waves-effect">
                         <i class="uil-calender"></i>
                         <span>Business</span>
                     </a>
-                </li>
+                </li>  --}}
                 <li>
-                    <a href="{{ route('user.sablist') }}" class="waves-effect">
-                        <i class="uil-calender"></i>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-store"></i>
                         <span>SAB</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('user.sablist') }}">SAB list</a></li>
+                       <li><a href="{{ route('user.sabposts') }}">SAB post</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="{{ route('user.consumerlist') }}" class="waves-effect">
-                        <i class="uil-calender"></i>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-store"></i>
                         <span>Consumer</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('user.consumerlist') }}">Consumer list</a></li>
+                       <li><a href="{{ route('user.consumerposts') }}">Consumer post</a></li>
+                    </ul>
                 </li>
 
                 {{--

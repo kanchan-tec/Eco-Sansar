@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="ThemeStarz">
 
-    <link href="frontend/assets/fonts/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href="frontend/assets/fonts/elegant-fonts.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('frontend/assets/fonts/font-awesome.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('frontend/assets/fonts/elegant-fonts.css') }}" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900,400italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="frontend/assets/bootstrap/css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="frontend/assets/css/zabuto_calendar.min.css" type="text/css">
-    <link rel="stylesheet" href="frontend/assets/css/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap/css/bootstrap.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/zabuto_calendar.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.carousel.css') }}" type="text/css">
 
-    <link rel="stylesheet" href="frontend/assets/css/jquery.nouislider.min.css" type="text/css">
-    <link rel="stylesheet" href="frontend/assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/jquery.nouislider.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" type="text/css">
 
     <title>EcoSansar</title>
 
@@ -29,7 +29,7 @@
            <div class="col-md-2"></div>
 
             <div class="left">
-                <a href="/" class="brand"><img src="frontend/assets/img/logo-one.png" alt="" height="50"></a>
+                <a href="/" class="brand"><img src="{{ asset('frontend/assets/img/logo-one.png') }}" alt="" height="50"></a>
             </div>
             <!--end left-->
             <div class="right">
@@ -39,7 +39,7 @@
                         </li>
                         <li class=" "><a href="#nav-listing">About</a>
                         </li>
-                        <li class=" "><a href="#nav-listing">Listings</a>
+                        <li class=" "><a href="{{ route('listings') }}">Listings</a>
                         </li>
                         <li class=" "><a href="#nav-pages">FAQ</a>
                         </li>
@@ -83,7 +83,7 @@
 
 
                 <!--end secondary-nav-->
-                <a href="#" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" data-modal-external-file="modal_submit.php" data-target="modal-submit"><i class="fa fa-plus"></i><span>Add listing</span></a>
+                <a href="#" class="btn btn-primary btn-small btn-rounded icon shadow add-listing"    ><i class="fa fa-plus"></i><span>Add listing</span></a>
                 <div class="nav-btn">
                     <i></i>
                     <i></i>

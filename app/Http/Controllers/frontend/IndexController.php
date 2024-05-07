@@ -47,7 +47,7 @@ class IndexController extends Controller
             'name' => 'required',
             'password' =>  'required|min:8',
             'pincode' => 'required|min:6|max:6',
-            'mobile' => 'required|numeric|min:10|max:10',
+            'mobile' => 'required',
             'email' => 'required|email',
             'address' => 'required',
             'gst' => 'required'
@@ -64,15 +64,12 @@ class IndexController extends Controller
         $user->gst = $req->gst;
         $user->user_type = $req->user_type;
         $user->save();
-
         Alert::success('success','Registration Successfull');
         return redirect()->back();
-
     }
 
     public function sab_save(Request $req)
     {
-
         $req->validate([
             'name' => 'required',
             'pincode' => 'required|min:6|max:6',
@@ -81,8 +78,6 @@ class IndexController extends Controller
             'latitude' => 'required',
             'longitude' =>'required'
         ]);
-
-
         $user = new EcosansarUsers;
         $user->name = $req->name;
         $user->address = $req->address;
@@ -92,7 +87,6 @@ class IndexController extends Controller
         $user->longitude = $req->longitude;
         $user->user_type = $req->user_type;
         $user->save();
-
         Alert::success('success','Registration Successfull');
         return redirect()->back();
     }
@@ -118,6 +112,7 @@ class IndexController extends Controller
         Alert::success('success','Registration Successfull');
         return redirect()->back();
     }
+
     public function business_login()
     {
         return view('frontend/auth/businesslogin');
@@ -144,6 +139,18 @@ class IndexController extends Controller
         if ($user && Hash::check($input['password'], $user->password)) {
             // Authentication successful, redirect to business details page
             session()->put('user_id', $user->id);
+            // Check if there is a redirect_to value in the session
+     $redirect_to = session()->get('redirect_to');
+     //$redirect_to = session('redirect_to');
+     if ($redirect_to) {
+         // If so, print the value (for debugging purposes)
+       //  echo "Redirect To: " . $redirect_to;
+         // Redirect the user to that page
+         session()->forget('redirect_to'); // Clear the session value
+         return redirect($redirect_to);
+     }
+
+     // If there's no redirect_to value, redirect to the consumer_posts page
             return redirect()->route('business_posts');
         } else {
             // Authentication failed, redirect back to login with error message
@@ -195,7 +202,7 @@ class IndexController extends Controller
         if($request->hasFile('post_pic')){
             $aadhar_image = $request->file('post_pic');
             $aadhar_fileexe = $aadhar_image->getClientOriginalExtension();
-            $aadhar_filenm = $request->name.".".$aadhar_fileexe;
+            $aadhar_filenm = 'businesspost'.".".$aadhar_fileexe;
             $request->file('post_pic')->move('frontend/assets/img/Businesspostimages', $aadhar_filenm);
             $user->post_pic = $aadhar_filenm;
         }
@@ -219,12 +226,6 @@ class IndexController extends Controller
     }
     public function business_posts(){
         $user_id = session()->get('user_id');
-       // $listings = ConsumerPost::
-       // where('user_id',$user_id)->get();
-       // $listings = ConsumerPost::join('consumer_resource_posts','consumer_resource_posts.post_id','consumer_posts.id')
-       // ->join('resources','resources.id','consumer_resource_posts.resource_type')
-       // ->select('consumer_posts.*','resources.resource_name')
-       // ->where('consumer_posts.user_id',$user_id)->get()->unique();
        $listings = BusinessPost::join('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
    ->join('resources', 'resources.id', 'business_resource_posts.resource_type')
    ->select('business_posts.*', 'resources.resource_name')
@@ -287,6 +288,18 @@ foreach ($postIds as $postId) {
         if ($user && ($input['otp'] == $user->otp)) {
             // Authentication successful, redirect to business details page
             session()->put('user_id', $user->id);
+            // Check if there is a redirect_to value in the session
+     $redirect_to = session()->get('redirect_to');
+     //$redirect_to = session('redirect_to');
+     if ($redirect_to) {
+         // If so, print the value (for debugging purposes)
+       //  echo "Redirect To: " . $redirect_to;
+         // Redirect the user to that page
+         session()->forget('redirect_to'); // Clear the session value
+         return redirect($redirect_to);
+     }
+
+     // If there's no redirect_to value, redirect to the consumer_posts page
             return redirect()->route('sab_posts');
         } else {
             // Authentication failed, redirect back to login with error message
@@ -298,12 +311,6 @@ foreach ($postIds as $postId) {
     }
     public function sab_posts(){
         $user_id = session()->get('user_id');
-       // $listings = ConsumerPost::
-       // where('user_id',$user_id)->get();
-       // $listings = ConsumerPost::join('consumer_resource_posts','consumer_resource_posts.post_id','consumer_posts.id')
-       // ->join('resources','resources.id','consumer_resource_posts.resource_type')
-       // ->select('consumer_posts.*','resources.resource_name')
-       // ->where('consumer_posts.user_id',$user_id)->get()->unique();
        $listings = SABPost::join('s_a_b_resource_posts', 's_a_b_resource_posts.post_id', 's_a_b_posts.id')
    ->join('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
    ->select('s_a_b_posts.*', 'resources.resource_name')
@@ -428,8 +435,20 @@ foreach ($postIds as $postId) {
             // Authentication successful, redirect to business details page
          // Store user_id in the session
         session()->put('user_id', $user->id);
+    // Check if there is a redirect_to value in the session
+     $redirect_to = session()->get('redirect_to');
+    //$redirect_to = session('redirect_to');
+    if ($redirect_to) {
+        // If so, print the value (for debugging purposes)
+      //  echo "Redirect To: " . $redirect_to;
+        // Redirect the user to that page
+        session()->forget('redirect_to'); // Clear the session value
+        return redirect($redirect_to);
+    }
 
-            return redirect()->route('consumer_posts');
+    // If there's no redirect_to value, redirect to the consumer_posts page
+    return redirect()->route('consumer_posts');
+
         } else {
             // Authentication failed, redirect back to login with error message
             return redirect()->route('consumer_login')->withErrors([
@@ -544,7 +563,154 @@ foreach ($postIds as $postId) {
         Alert::success('Success','Consumer Post Added Successfully');
          return redirect()->route('consumer_posts');
     }
+    public function consumer_listing_details($id){
+         $user_id = session()->get('user_id');
+        $consumerpostsres = ConsumerResourcePost::where('user_id',$user_id)->where('post_id',$id)->get();
+        $consumerposts = ConsumerPost::join('weights','weights.id','consumer_posts.quantity')
+        ->select('consumer_posts.*','weights.*')
+        ->where('consumer_posts.user_id',$user_id)
+        ->where('consumer_posts.id',$id)->first();
+        // echo "<pre>";
+        // print_r($consumerposts);die;
+        return view('frontend/userdetails/consumerlistingdetail',compact('consumerpostsres','consumerposts'));
+    }
+    public function sab_listing_details($id){
+        $user_id = session()->get('user_id');
+       $sabpostsres = SABResourcePost::where('user_id',$user_id)->where('post_id',$id)->get();
+       $sabposts = SABPost::join('weights','weights.id','s_a_b_posts.quantity')
+       ->select('s_a_b_posts.*','weights.*')
+       ->where('s_a_b_posts.user_id',$user_id)
+       ->where('s_a_b_posts.id',$id)->first();
+       // echo "<pre>";
+       // print_r($consumerposts);die;
+       return view('frontend/userdetails/sablistingdetail',compact('sabpostsres','sabposts'));
+   }
+   public function business_listing_details($id){
+    $user_id = session()->get('user_id');
+   $businesspostsres = BusinessResourcePost::where('user_id',$user_id)->where('post_id',$id)->get();
+   $businessposts = BusinessPost::join('weights','weights.id','business_posts.quantity')
+   ->select('business_posts.*','weights.*')
+   ->where('business_posts.user_id',$user_id)
+   ->where('business_posts.id',$id)->first();
+//    echo "<pre>";
+//    print_r($businessposts->sale_giveaway);die;
+   return view('frontend/userdetails/businesslistingdetail',compact('businesspostsres','businessposts'));
+}
 
+public function listings(){
+    $user_id = session()->get('user_id');
+
+//Business posts
+
+    $listings = BusinessPost::join('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
+->join('resources', 'resources.id', 'business_resource_posts.resource_type')
+->select('business_posts.*', 'resources.resource_name');
+// Exclude user's own posts if logged in
+if ($user_id) {
+    $listings->where('business_posts.user_id', '!=', $user_id);
+}
+
+$listings = $listings->get();
+
+// Extract unique post IDs
+$postIds = $listings->pluck('id')->unique();
+
+// Filter listings to get only one record per post and include all resource names
+$busuniqueListings = collect([]);
+foreach ($postIds as $postId) {
+$postListings = $listings->where('id', $postId);
+$resourceNames = $postListings->pluck('resource_name')->implode(', ');
+$uniqueListing = $postListings->first();
+$uniqueListing->resource_names = $resourceNames;
+$busuniqueListings->push($uniqueListing);
+}
+
+
+//SAB posts
+
+$listings = SABPost::join('s_a_b_resource_posts', 's_a_b_resource_posts.post_id', 's_a_b_posts.id')
+->join('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
+->select('s_a_b_posts.*', 'resources.resource_name');
+if ($user_id) {
+    $listings->where('s_a_b_posts.user_id', '!=', $user_id);
+}
+
+$listings = $listings->get();
+
+// Extract unique post IDs
+$postIds = $listings->pluck('id')->unique();
+
+// Filter listings to get only one record per post and include all resource names
+$sabuniqueListings = collect([]);
+foreach ($postIds as $postId) {
+$postListings = $listings->where('id', $postId);
+$resourceNames = $postListings->pluck('resource_name')->implode(', ');
+$uniqueListing = $postListings->first();
+$uniqueListing->resource_names = $resourceNames;
+$sabuniqueListings->push($uniqueListing);
+}
+
+//Consumer posts
+$listings = ConsumerPost::join('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
+->join('resources', 'resources.id', 'consumer_resource_posts.resource_type')
+->select('consumer_posts.*', 'resources.resource_name');
+if ($user_id) {
+    $listings->where('consumer_posts.user_id', '!=', $user_id);
+}
+
+$listings = $listings->get();
+
+// Extract unique post IDs
+$postIds = $listings->pluck('id')->unique();
+
+// Filter listings to get only one record per post and include all resource names
+$conuniqueListings = collect([]);
+foreach ($postIds as $postId) {
+$postListings = $listings->where('id', $postId);
+$resourceNames = $postListings->pluck('resource_name')->implode(', ');
+$uniqueListing = $postListings->first();
+$uniqueListing->resource_names = $resourceNames;
+$conuniqueListings->push($uniqueListing);
+}
+    return view('frontend/listings/listingslist',compact('busuniqueListings','sabuniqueListings','conuniqueListings'));
+}
+public function con_listing_details($id) {
+    // Check if the user is logged in
+    $user_id = session()->get('user_id');
+
+    if (null === $user_id || $user_id === '') {
+        // User is not logged in, redirect to the login page
+        session()->put('redirect_to', route('con_listing_details', $id));
+        return redirect()->route('consumer_login');
+    }
+
+    // User is logged in, proceed to fetch the listing details
+    $consumerpostsres = ConsumerResourcePost::where('post_id', $id)->get();
+
+    $consumerposts = ConsumerPost::join('weights', 'weights.id', 'consumer_posts.quantity')
+        ->select('consumer_posts.*', 'weights.*')
+        ->where('consumer_posts.id', $id)
+        ->first();
+
+    return view('frontend/listings/con_listing_details', compact('consumerpostsres', 'consumerposts'));
+}
+
+public function sabs_listing_details($id){
+    $user_id = session()->get('user_id');
+    if (null === $user_id || $user_id === '') {
+        session()->put('redirect_to', route('sabs_listing_details', $id));
+        return redirect()->route('sab_login'); // Redirect to the login page
+    }
+    return view('frontend/listings/sab_listing_details');
+}
+public function bus_listing_details($id){
+    $user_id = session()->get('user_id');
+    if (null === $user_id || $user_id === '') {
+        session()->put('redirect_to', route('bus_listing_details', $id));
+        return redirect()->route('business_login'); // Redirect to the login page
+    }
+    return view('frontend/listings/bus_listing_details');
+}
 }
 
 

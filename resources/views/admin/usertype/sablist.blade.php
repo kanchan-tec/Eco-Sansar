@@ -35,7 +35,6 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
-                                <th>User Type</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -49,7 +48,6 @@
                                         <td>{{ $res->name }}</td>
                                         <td>{{ $res->email }}</td>
                                         <td>{{ $res->mobile }}</td>
-                                        <td>{{ $res->user_type }}</td>
                                         <td>
                                             <a title="View" href="{{ route('user.sabview',$res->id) }}" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>
                                             {{--  <a title="Edit" href="{{ route('user.edit', $res->id) }}" class="btn btn-outline-success btn-sm edit"><i class="fas fa-pencil-alt"></i></a>

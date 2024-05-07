@@ -170,7 +170,7 @@
                         @foreach($uniqueListings as $listing)
                             <div class="col-md-4 col-sm-4">
                                 <div class="item" data-id="{{ $listing->id }}">
-                                    <a href="#">
+                                    <a href="{{ url('sab_listing_details/'.$listing->id) }}">
                                         <div class="description">
                                             <ul>
                                                 @foreach(explode(', ', $listing->resource_names) as $resourceName)
