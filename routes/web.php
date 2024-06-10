@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\FaqController;
 use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\frontend\IndexController;
+use App\Http\Controllers\frontend\EnquiryController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\ResourceController;
@@ -40,6 +41,8 @@ Route::controller(IndexController::class)->group(function(){
     Route::get('sab_details','sab_details')->name('sab_details');
     Route::post('sab_post_save','sab_post_save')->name('sab_post_save');
     Route::get('sab_listing_details/{id}','sab_listing_details')->name('sab_listing_details');
+    Route::post('/sab_send_enquiry', 'sabsendEnquiryEmail')->name('sab_send_enquiry');
+    Route::post('/loginsab_send_enquiry', 'loginsabsendEnquiryEmail')->name('loginsab_send_enquiry');
     Route::get('consumer_login', 'consumer_login')->name('consumer_login');
     //Route::post('send_otp','sendOtp')->name('send_otp');
     Route::post('consumer_store','consumer_store')->name('consumer.store');
@@ -57,6 +60,15 @@ Route::controller(IndexController::class)->group(function(){
     Route::post('sab_save','sab_save')->name('sab.save');
     Route::post('consumer_save','consumer_save')->name('consumer.save');
     Route::get('/user_logout', 'signOut')->name('user_logout');
+});
+Route::controller(EnquiryController::class)->group(function(){
+
+    Route::post('enquiry/consumer_save','consumer_save')->name('enquiry.consumer_save');
+    Route::post('enquiry/sab_save','sab_save')->name('enquiry.sab_save');
+    Route::post('enquiry/business_save','business_save')->name('enquiry.business_save');
+    Route::post('review/sab_save','sabreviewsave')->name('review.sab_save');
+    Route::post('review/consumer_save','consumerreviewsave')->name('review.consumer_save');
+    Route::post('review/business_save','businessreviewsave')->name('review.business_save');
 });
 
 Auth::routes();
@@ -81,6 +93,7 @@ Route::post('/changepassword_store', [App\Http\Controllers\admin\AuthController:
 
 Route::controller(AdminController::class)->group(function(){
     Route::get('user/businesslist','businesslist')->name('user.businesslist');
+    Route::get('/changeStatus', 'changeStatus')->name('user.changeStatus');
     Route::get('user/sablist','sablist')->name('user.sablist');
     Route::get('user/sabposts','sabposts')->name('user.sabposts');
     Route::get('user/sabpostsview/{id}','sabpostsview')->name('user.sabpostsview');
@@ -92,6 +105,8 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('user/consumerview/{id}','consumerview')->name('user.consumerview');
     Route::get('user/businessposts','businessposts')->name('user.businessposts');
     Route::get('user/businesspostsview/{id}','businesspostsview')->name('user.businesspostsview');
+    Route::get('user/sabreviews','sabreviews')->name('user.sabreviews');
+    Route::get('user/consumerreviews','consumerreviews')->name('user.consumerreviews');
 });
 
 Route::controller(ContactController::class)->group(function(){

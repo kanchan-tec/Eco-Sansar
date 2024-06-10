@@ -21,7 +21,7 @@
 
                                     <div class="form-group">
                                         <label for="name">  Name<span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder=" Name">
+                                        <input onkeydown="return /[a-z ]/i.test(event.key)" type="text" class="form-control" name="name" id="name" placeholder=" Name" value={{ old('name') }}>
                                         @if ($errors->has('name'))
                                              <span class="text-danger">{{ $errors->first('name') }}</span>
                                         @endif
@@ -31,7 +31,7 @@
 
                                     <div class="form-group">
                                         <label for="mobile">Phone number<span style="color:red;">*</span> </label>
-                                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number">
+                                        <input onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 8" type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number" minlength="10" maxlength="10" value={{ old('mobile') }}>
                                         @if ($errors->has('mobile'))
                                         <span class="text-danger">{{ $errors->first('mobile') }}</span>
                                     @endif
@@ -42,7 +42,7 @@
 
                                 <div class="form-group">
                                     <label for="address">Location<span style="color:red;">*</span></label>
-                                    <input type="text" class="form-control" name="address" id="address" placeholder="Location">
+                                    <input type="text" class="form-control" name="address" id="address" placeholder="Location" value={{ old('address') }}>
                                     @if ($errors->has('address'))
                                         <span class="text-danger">{{ $errors->first('address') }}</span>
                                     @endif
@@ -50,7 +50,7 @@
                                 <!--end form-group-->
                                 <div class="form-group">
                                     <label for="pincode">Pincode<span style="color:red;">*</span></label>
-                                    <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode">
+                                    <input onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 8" type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode" minlength="6" maxlength="6" value={{ old('pincode') }}>
                                     @if ($errors->has('pincode'))
                                         <span class="text-danger">{{ $errors->first('pincode') }}</span>
                                      @endif
@@ -60,7 +60,7 @@
 
                                     <div class="form-group">
                                         <label for="latitude">Latitude<span style="color:red;">*</span> </label>
-                                        <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude">
+                                        <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude" value={{ old('latitude') }}>
                                         @if ($errors->has('latitude'))
                                         <span class="text-danger">{{ $errors->first('latitude') }}</span>
                                      @endif
@@ -68,7 +68,7 @@
                                     <!--end form-group-->
                                     <div class="form-group">
                                         <label for="longitude">Longitude<span style="color:red;">*</span> </label>
-                                        <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude">
+                                        <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude" value={{ old('longitude') }}>
                                         @if ($errors->has('longitude'))
                                         <span class="text-danger">{{ $errors->first('longitude') }}</span>
                                      @endif

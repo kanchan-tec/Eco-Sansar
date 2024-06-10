@@ -1,12 +1,64 @@
+<style>
+    /* Style for star ratings */
+    .star-rating1 {
+        unicode-bidi: bidi-override;
+        direction: ltr; /* Set to left-to-right */
+        text-align: center;
+    }
+
+    .star-rating1 span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        font-size: 31px;
+        cursor: pointer;
+        color:transparent;
+    }
+
+    .star-rating1 span:before {
+       content: "\2606";
+        position: absolute;
+        color: #FFD700;
+    }
+
+    .star-rating1 span.highlight {
+
+        color: #FFD700; /* Yellow */
+    }
+    .logoimg{
+        width : auto ;
+height:36px;
+    }
+    input{
+        font-family: sans-serif !important;
+    }
+    textarea {
+width: -webkit-fill-available !important;
+padding-left:8px;
+}
+
+
+@media (max-width:767px){
+.rt-container {
+    padding-left:2px;
+    padding-right:2px;
+}
+.ScriptHeader{
+    padding-top: 2px;
+}
+
+
+}
+</style>
 @include('frontend.include.header')
 @include('sweetalert::alert')
+
+
 
 <div id="page-content">
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Pages</a></li>
-            <li class="active">Contact</li>
+
         </ol>
         <section class="page-title pull-left">
             <h1>{{ $consumerposts->name }}</h1>
@@ -47,46 +99,34 @@
                         <dd>{{ $consumerposts->packaged }}</dd>
                     </dl>
                 </section>
-                {{--  <section>
+                <section>
                     <h2>Reviews</h2>
                     <div class="review">
-                        <div class="image">
-                            <div class="bg-transfer"><img src="assets/img/person-02.jpg" alt=""></div>
-                        </div>
+
+                        @foreach($conlistreviews as $review)
                         <div class="description">
                             <figure>
-                                <div class="rating-passive" data-rating="4">
+                                <div class="rating-passive" data-rating="{{ $review->rating }}">
+                                    <span class=" ">{{ $review->title }}</span>
                                     <span class="stars"></span>
-                                    <span class="reviews">6</span>
+                                    <span class="reviews">{{ $review->rating }}</span>
                                 </div>
-                                <span class="date">09.05.2016</span>
                             </figure>
-                            <p>Donec nec tristique sapien. Aliquam ante felis, sagittis sodales diam sollicitudin, dapibus semper turpis</p>
+                            <p>{{ $review->message }}</p> <!-- Assuming content is your review content -->
                         </div>
+                        @endforeach
+
                     </div>
                     <!--end review-->
-                    <div class="review">
-                        <div class="image">
-                            <div class="bg-transfer"><img src="assets/img/person-01.jpg" alt=""></div>
-                        </div>
-                        <div class="description">
-                            <figure>
-                                <div class="rating-passive" data-rating="5">
-                                    <span class="stars"></span>
-                                    <span class="reviews">6</span>
-                                </div>
-                                <span class="date">09.05.2016</span>
-                            </figure>
-                            <p>Vestibulum vel est massa. Integer pellentesque non augue et accumsan. Maecenas molestie elit nibh,
-                                vel vestibulum leo condimentum quis. Duis ac orci a magna auctor vehicula.
-                            </p>
-                        </div>
-                    </div>
-                    <!--end review-->
-                </section>  --}}
+
+
+                </section>
                 <section id="write-a-review">
                     <h2>Write a Review</h2>
-                    <form class="clearfix form inputs-underline">
+                    <form class="clearfix form inputs-underline" action="{{ route('review.consumer_save') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $u_id }}">
+                        <input type="hidden" name="post_id" value="{{ $post_id }}">
                         <div class="box">
                             <div class="comment">
                                 <div class="row">
@@ -97,32 +137,37 @@
                                         <!--end title-->
                                         <div class="form-group">
                                             <label for="name">Title of your review<em>*</em></label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Beautiful place!" required="">
+                                            <input type="text" class="form-control" id="title" name="title" >
+                                            @if ($errors->has('title'))
+                                                <span class="text-danger">{{ $errors->first('title') }}</span>
+                                            @endif
                                         </div>
                                         <div class="form-group">
                                             <label for="message">Your Message<em>*</em></label>
-                                            <textarea class="form-control" id="message" rows="8" name="message" required="" placeholder="Describe your experience"></textarea>
+                                            <textarea class="form-control" id="message" rows="8" name="message"  =""  ></textarea>
+                                            @if ($errors->has('message'))
+                                            <span class="text-danger">{{ $errors->first('message') }}</span>
+                                        @endif
                                         </div>
                                         <!--end form-group-->
                                     </div>
                                     <!--end col-md-8-->
                                     <div class="col-md-4">
                                         <div class="comment-title">
-                                            <h4>Rating</h4>
+                                            <label for="name">Rating<em>*</em></label>
                                         </div>
                                         <!--end title-->
-                                        <dl class="visitor-rating">
-                                            <dt>Comfort</dt>
-                                            <dd class="star-rating active" data-name="comfort"></dd>
-                                            <dt>Location</dt>
-                                            <dd class="star-rating active" data-name="location"></dd>
-                                            <dt>Facilities</dt>
-                                            <dd class="star-rating active" data-name="facilities"></dd>
-                                            <dt>Staff</dt>
-                                            <dd class="star-rating active" data-name="staff"></dd>
-                                            <dt>Value for money</dt>
-                                            <dd class="star-rating active" data-name="value"></dd>
-                                        </dl>
+                                        <span class="star-rating1" id="star1">
+                                            <span data-rating="1">&#9733;</span>
+                                            <span data-rating="2">&#9733;</span>
+                                            <span data-rating="3">&#9733;</span>
+                                            <span data-rating="4">&#9733;</span>
+                                            <span data-rating="5">&#9733;</span>
+                                        </span>
+                                        <input type="hidden" name="rating" id="rating" value="0">
+                                        @if ($errors->has('rating'))
+                                            <span class="text-danger">{{ $errors->first('rating') }}</span>
+                                        @endif
                                     </div>
                                     <!--end col-md-4-->
                                 </div>
@@ -137,6 +182,7 @@
                         </div>
                         <!--end review-->
                     </form>
+
                     <!--end form-->
                 </section>
             </div>
@@ -148,12 +194,17 @@
 
                         <!--end map-->
                         <div class="content">
-                            <form class="form form-email inputs-underline" id="form-hero">
+                            <form class="form form-email inputs-underline"  action="{{ route('enquiry.consumer_save') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $id }}">
                                 <div class="row justify-content-center align-items-center">
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
-                                            <label for="name">Name</label>
+                                            <label for="name">Name<span style="color:red;">*</span></label>
                                             <input type="text" class="form-control" name="name" id="name">
+                                            @if ($errors->has('name'))
+                                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                                            @endif
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -162,8 +213,11 @@
                                     <!--end col-md-4-->
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
-                                            <label for="email">Email</label>
+                                            <label for="email">Email<span style="color:red;">*</span></label>
                                             <input type="email" class="form-control" name="email" id="email">
+                                            @if ($errors->has('email'))
+                                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                                            @endif
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -172,8 +226,11 @@
                                     <div class="row">
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
-                                            <label for="subject">Subject</label>
-                                            <input type="text" class="form-control" name="subject" id="subject">
+                                            <label for="subject">Phone no<span style="color:red;">*</span></label>
+                                            <input type="text" class="form-control" name="mobile" id="mobile">
+                                            @if ($errors->has('mobile'))
+                                                <span class="text-danger">{{ $errors->first('mobile') }}</span>
+                                            @endif
                                         </div>
                                         <!--end form-group-->
                                     </div>
@@ -181,12 +238,15 @@
                                 </div>
                                 <!--end row-->
                                 <div class="form-group">
-                                    <label for="message">Message</label>
+                                    <label for="message">Message<span style="color:red;">*</span></label>
                                     <textarea class="form-control" id="message" rows="4" name="message"></textarea>
+                                    @if ($errors->has('message'))
+                                                <span class="text-danger">{{ $errors->first('message') }}</span>
+                                            @endif
                                 </div>
                                 <!--end form-group-->
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary icon shadow">Send Message<i class="fa fa-caret-right"></i></button>
+                                    <button type="submit" class="btn btn-primary btn-rounded">Send Message </button>
                                 </div>
                                 <!--end form-group-->
                             </form>
@@ -208,3 +268,32 @@
 </div>
 
 @include('frontend.include.footer');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const starRatingContainers = document.querySelectorAll('#star1');
+      var inputhidden = document.getElementById("rating");
+
+        starRatingContainers.forEach(container => {
+            const stars = container.querySelectorAll('span');
+            //const hiddenInput = container.nextElementSibling; // Use nextElementSibling
+
+            stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const rating = star.getAttribute('data-rating');
+            inputhidden.value=rating;
+            //hiddenInput.value = rating; // Update the hidden input field
+            console.log('Rating: ' + rating); // Add this line
+
+            // Highlight stars from the first star to the clicked star
+            stars.forEach(s => {
+                const sRating = s.getAttribute('data-rating');
+                s.classList.remove('highlight');
+                if (sRating <= rating) {
+                    s.classList.add('highlight');
+                }
+            });
+        });
+    });
+        });
+    });
+    </script>

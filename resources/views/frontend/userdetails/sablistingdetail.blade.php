@@ -1,3 +1,46 @@
+<style>
+    <style>
+
+        .hidden {
+            display: none;
+        }
+        .send-button{
+            background-color: green !important;
+            border-color: green !important;
+        }
+        textarea{
+            width: 80%;
+            border-radius: 20px;
+            padding: 10px;
+        }
+        .align-right {
+            text-align: right;
+            margin-left: auto;
+            margin-right: 0;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .align-left {
+            text-align: left;
+            margin-right: auto;
+            margin-left: 0;
+            background-color: #e1e1e1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .align-right span,
+        .align-left span {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</style>
 @include('frontend.include.header')
 @include('sweetalert::alert')
 
@@ -46,171 +89,116 @@
                         <dd>{{ $sabposts->packaged }}</dd>
                     </dl>
                 </section>
-                {{--  <section>
-                    <h2>Features</h2>
-                    <ul class="tags">
-                        <li>Wi-Fi</li>
-                        <li>Parking</li>
-                        <li>TV</li>
-                        <li>Alcohol</li>
-                        <li>Vegetarian</li>
-                        <li>Take-out</li>
-                        <li>Balcony</li>
-                    </ul>
-                </section>  --}}
                 <section>
                     <h2>Reviews</h2>
                     <div class="review">
-                        <div class="image">
-                            <div class="bg-transfer"><img src="assets/img/person-02.jpg" alt=""></div>
-                        </div>
+
+                        @foreach($sabreviews as $review)
                         <div class="description">
                             <figure>
-                                <div class="rating-passive" data-rating="4">
+                                <div class="rating-passive" data-rating="{{ $review->rating }}">
+                                    <span class=" ">{{ $review->title }}</span>
                                     <span class="stars"></span>
-                                    <span class="reviews">6</span>
+                                    <span class="reviews">{{ $review->rating }}</span>
                                 </div>
-                                <span class="date">09.05.2016</span>
                             </figure>
-                            <p>Donec nec tristique sapien. Aliquam ante felis, sagittis sodales diam sollicitudin, dapibus semper turpis</p>
+                            <p>{{ $review->message }}</p> <!-- Assuming content is your review content -->
                         </div>
+                        @endforeach
+
                     </div>
                     <!--end review-->
-                    <div class="review">
-                        <div class="image">
-                            <div class="bg-transfer"><img src="assets/img/person-01.jpg" alt=""></div>
-                        </div>
-                        <div class="description">
-                            <figure>
-                                <div class="rating-passive" data-rating="5">
-                                    <span class="stars"></span>
-                                    <span class="reviews">6</span>
-                                </div>
-                                <span class="date">09.05.2016</span>
-                            </figure>
-                            <p>Vestibulum vel est massa. Integer pellentesque non augue et accumsan. Maecenas molestie elit nibh,
-                                vel vestibulum leo condimentum quis. Duis ac orci a magna auctor vehicula.
-                            </p>
-                        </div>
-                    </div>
-                    <!--end review-->
+
+
                 </section>
-                {{--  <section id="write-a-review">
-                    <h2>Write a Review</h2>
-                    <form class="clearfix form inputs-underline">
-                        <div class="box">
-                            <div class="comment">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="comment-title">
-                                            <h4>Review your experience</h4>
-                                        </div>
-                                        <!--end title-->
-                                        <div class="form-group">
-                                            <label for="name">Title of your review<em>*</em></label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Beautiful place!" required="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message">Your Message<em>*</em></label>
-                                            <textarea class="form-control" id="message" rows="8" name="message" required="" placeholder="Describe your experience"></textarea>
-                                        </div>
-                                        <!--end form-group-->
-                                    </div>
-                                    <!--end col-md-8-->
-                                    <div class="col-md-4">
-                                        <div class="comment-title">
-                                            <h4>Rating</h4>
-                                        </div>
-                                        <!--end title-->
-                                        <dl class="visitor-rating">
-                                            <dt>Comfort</dt>
-                                            <dd class="star-rating active" data-name="comfort"></dd>
-                                            <dt>Location</dt>
-                                            <dd class="star-rating active" data-name="location"></dd>
-                                            <dt>Facilities</dt>
-                                            <dd class="star-rating active" data-name="facilities"></dd>
-                                            <dt>Staff</dt>
-                                            <dd class="star-rating active" data-name="staff"></dd>
-                                            <dt>Value for money</dt>
-                                            <dd class="star-rating active" data-name="value"></dd>
-                                        </dl>
-                                    </div>
-                                    <!--end col-md-4-->
-                                </div>
-                                <!--end row-->
-                                <br>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-rounded">Send Review</button>
-                                </div>
-                                <!--end form-group-->
-                            </div>
-                            <!--end comment-->
-                        </div>
-                        <!--end review-->
-                    </form>
-                    <!--end form-->
-                </section>  --}}
+
             </div>
             <!--end col-md-7-->
-            {{--  <div class="col-md-5 col-sm-5">
+            <div class="col-md-5 col-sm-5">
                 <div class="detail-sidebar">
-                    <h2>Enquiry form</h2>
                     <section class="shadow">
 
-                        <!--end map-->
-                        <div class="content">
-                            <form class="form form-email inputs-underline" id="form-hero">
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" class="form-control" name="name" id="name">
-                                        </div>
-                                        <!--end form-group-->
+                        <h2>Enquiries</h2>
+                <div class="content">
+                    @foreach($sabenquiries as $review)
+                    <div class="description review-item" data-id="{{ $review->id }}" style="cursor: pointer;">
+                        <figure>
+                            <div class="rating-passive" data-rating="{{ $review->rating ?? ' ' }}">
+                                <span class="reviewer-name">Name: {{ $review->name }}</span>
+                            </div>
+                        </figure>
+                        <p>Message: {{ $review->message }}</p>
+                        <div class="additional-details hidden">
+                            <p>Email: {{ $review->email }}</p>
+                            <p>Mobile: {{ $review->mobile }}</p>
+
+                            <!-- Display chat messages -->
+                            @foreach($sabenquirymsg as $message)
+                                @if($message->type == 'admin')
+                                    <div class="align-left">
+                                        <span>You</span>
+                                        <p>{{ $message->adminmessage }}</p>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="align-right">
+                                        <span>User</span>
+                                        <p>{{ $message->usermessage }}</p>
+                                    </div>
+                                @endif
+                            @endforeach
+
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            {{--  <h4 class="card-title">Form layouts</h4>  --}}
+                                            <div class="row ">
+                                                <div class="col-lg-12">
+                                                    <div class="mt-4">
+                            <form action="{{ route('sab_send_enquiry') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="email" value="{{ $review->email }}">
+                                <input type="hidden" name="enquiryid" value="{{ $review->id }}">
+                                <input type="hidden" name="login_id"  value="{{ $user_id }}">
+                                <input type="hidden" name="user_id" value="{{ $sabuserid }}">
+                                <input type="hidden" name="post_id" value="{{ $id }}">
+                                <input type="hidden" name="enquiry_id" value="{{ $enquiry_id }}">
                                 <div class="row">
-                                    <!--end col-md-4-->
-                                    <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" class="form-control" name="email" id="email">
+                                            <label class="form-label" for="formrow-password-input">Enter message</label><br>
+                                            <textarea   placeholder="Enter your message" class="message-textarea" rows="3" name="message"></textarea>
                                         </div>
-                                        <!--end form-group-->
                                     </div>
                                 </div>
-                                    <!--end col-md-4-->
-                                    <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="subject">Subject</label>
-                                            <input type="text" class="form-control" name="subject" id="subject">
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                 <button class="send-button mt-3 btn btn-primary btn-small btn-rounded icon"  >Send</button>
                                         </div>
-                                        <!--end form-group-->
                                     </div>
-                                    <!--end col-md-4-->
                                 </div>
-                                <!--end row-->
-                                <div class="form-group">
-                                    <label for="message">Message</label>
-                                    <textarea class="form-control" id="message" rows="4" name="message"></textarea>
-                                </div>
-                                <!--end form-group-->
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary icon shadow">Send Message<i class="fa fa-caret-right"></i></button>
-                                </div>
-                                <!--end form-group-->
                             </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    @endforeach
+                </div>
+
                     </section>
 
-                    {{--  <section>
-                        <h2>Share This Listing</h2>
-                        <div class="social-share"></div>
-                    </section>  --}}
+
                 </div>
                 <!--end detail-sidebar-->
-            {{--  </div>  --}}
+            </div>
             <!--end col-md-5-->
         </div>
         <!--end row-->
@@ -219,3 +207,23 @@
 </div>
 
 @include('frontend.include.footer');
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const reviewItems = document.querySelectorAll('.review-item');
+
+        reviewItems.forEach(item => {
+            item.addEventListener('click', function () {
+                reviewItems.forEach(i => i.classList.add('hidden'));
+                this.classList.remove('hidden');
+
+                const details = this.querySelector('.additional-details');
+                if (details) {
+                    details.classList.remove('hidden');
+                }
+            });
+        });
+
+
+    });
+</script>

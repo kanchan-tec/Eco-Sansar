@@ -22,7 +22,7 @@ $(document).ready(function($) {
     }
 
     if( customizerEnabled == 1 ){
-        $.getScript( "assets/misc/customizer.js", function( data, textStatus, jqxhr ) {
+        $.getScript( "frontend/assets/misc/customizer.js", function( data, textStatus, jqxhr ) {
             loadColor("load_default_color");
         });
     }
@@ -295,21 +295,21 @@ $(document).ready(function($) {
 
 //  Form Validation
 
-    $(".form-email .btn[type='submit']").on("click", function(){
-        var button = $(this);
-        var form = $(this).closest("form");
-        button.prepend("<div class='status'></div>");
-        form.validate({
-            submitHandler: function() {
-                $.post("assets/external/email.php", form.serialize(),  function(response) {
-                    //console.log(response);
-                    button.find(".status").append(response);
-                    form.addClass("submitted");
-                });
-                return false;
-            }
-        });
-    });
+    // $(".form-email .btn[type='submit']").on("click", function(){
+    //     var button = $(this);
+    //     var form = $(this).closest("form");
+    //     button.prepend("<div class='status'></div>");
+    //     form.validate({
+    //         submitHandler: function() {
+    //             $.post("frontend/assets/external/email.php", form.serialize(),  function(response) {
+    //                 //console.log(response);
+    //                 button.find(".status").append(response);
+    //                 form.addClass("submitted");
+    //             });
+    //             return false;
+    //         }
+    //     });
+    // });
 
     equalHeight(".container");
     ratingPassive("body");

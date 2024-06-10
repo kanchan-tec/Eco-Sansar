@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-   Consumer List
+   SAB Review
 @endsection
 @section('css')
     <!-- DataTables -->
@@ -9,8 +9,8 @@
 
 @section('content')
     @component('common-components.breadcrumb')
-        @slot('pagetitle') List @endslot
-        @slot('title') Consumer @endslot
+        @slot('pagetitle') Review @endslot
+        @slot('title') SAB @endslot
     @endcomponent
 
 
@@ -32,34 +32,58 @@
                         <thead>
                             <tr>
                                 <th>Sr. No</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>Post name</th>
+                                <th>User name</th>
+                                <th>Title</th>
+                                <th>Rating</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                                @php
-                                    $i=1;
-                                @endphp
+                            @php
+                            $i = 1;
+
+                            // Check if the function displayStars() is not already defined
+                            if (!function_exists('displayStars')) {
+                                // Define the function to display stars based on rating
+                                function displayStars($rating) {
+                                    $fullStars = intval($rating); // Get the integer part of the rating
+                                    $halfStar = ($rating - $fullStars) >= 0.5 ? 1 : 0; // Check if there's a half star
+                                    $emptyStars = 5 - $fullStars - $halfStar; // Calculate the number of empty stars
+
+                                    // Display full stars
+                                    for ($i = 0; $i < $fullStars; $i++) {
+                                        echo '<i class="fa fa-star"></i>';
+                                    }
+
+                                    // Display half star if needed
+                                    if ($halfStar) {
+                                        echo '<i class="fa fa-star-half"></i>';
+                                    }
+
+                                    // Display empty stars
+                                    for ($i = 0; $i < $emptyStars; $i++) {
+                                        echo '<i class="fa fa-star-o"></i>';
+                                    }
+                                }
+                            }
+                        @endphp
                                 @foreach ($result as $res)
                                 <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $res->name }}</td>
-                                        <td>{{ $res->email }}</td>
-                                        <td>{{ $res->mobile }}</td>
+                                        <td>{{ $res->username }}</td>
+                                        <td>{{ $res->title }}</td>
                                         <td>
-                                            <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                                <input type="checkbox" class="form-check-input toggle-checkbox"
-                                                       data-id="{{$res->id}}" {{ $res->is_checked ? 'checked' : '' }}>
-                                            </div>
+                                            <!-- Call the function to display stars -->
+                                            <span>
+                                                @php
+                                                    displayStars($res->rating);
+                                                @endphp
+                                            </span>
                                         </td>
-                                        <td>
-                                            <a title="View" href="{{ route('user.consumerview', $res->id) }}" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>
-                                            {{--  <a title="Edit" href="{{ route('user.edit', $res->id) }}" class="btn btn-outline-success btn-sm edit"><i class="fas fa-pencil-alt"></i></a>
-                                            <a title="Delete" href="{{ route('user.delete', $res->id) }}" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-outline-danger btn-sm deleteAttr"><i class="fas fa-trash-alt"></i></a>  --}}
-                                        </td>
+
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -92,22 +116,4 @@
         });
 
 </script>
-<script>
-    $(function() {
-      $('.toggle-checkbox').change(function() {
-          var status = $(this).prop('checked') == true ? 1 : 0;
-          var user_id = $(this).data('id');
-
-          $.ajax({
-              type: "GET",
-              dataType: "json",
-              url: "{{url('/changeStatus')}}",
-              data: {'status': status, 'user_id': user_id},
-              success: function(data){
-                console.log(data.success)
-              }
-          });
-      })
-    })
-  </script>
 @endsection

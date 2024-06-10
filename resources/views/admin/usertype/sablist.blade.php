@@ -35,6 +35,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -48,6 +49,12 @@
                                         <td>{{ $res->name }}</td>
                                         <td>{{ $res->email }}</td>
                                         <td>{{ $res->mobile }}</td>
+                                        <td>
+                                            <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                                <input type="checkbox" class="form-check-input toggle-checkbox"
+                                                       data-id="{{$res->id}}" {{ $res->is_checked ? 'checked' : '' }}>
+                                            </div>
+                                        </td>
                                         <td>
                                             <a title="View" href="{{ route('user.sabview',$res->id) }}" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>
                                             {{--  <a title="Edit" href="{{ route('user.edit', $res->id) }}" class="btn btn-outline-success btn-sm edit"><i class="fas fa-pencil-alt"></i></a>
@@ -85,4 +92,22 @@
         });
 
 </script>
+<script>
+    $(function() {
+      $('.toggle-checkbox').change(function() {
+          var status = $(this).prop('checked') == true ? 1 : 0;
+          var user_id = $(this).data('id');
+
+          $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: "{{url('/changeStatus')}}",
+              data: {'status': status, 'user_id': user_id},
+              success: function(data){
+                console.log(data.success)
+              }
+          });
+      })
+    })
+  </script>
 @endsection

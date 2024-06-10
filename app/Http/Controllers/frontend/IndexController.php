@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\frontend\EcosansarUsers;
 use App\Models\frontend\ConsumerPost;
 use App\Models\frontend\ConsumerResourcePost;
+use App\Models\Frontend\ConsumerReview;
 use App\Models\frontend\SABPost;
+use App\Models\frontend\SABReview;
+use App\Models\frontend\SABEnquiry;
+use App\Models\frontend\SABEnquiryMessages;
 use App\Models\frontend\SABResourcePost;
 use App\Models\frontend\BusinessPost;
 use App\Models\frontend\BusinessResourcePost;
@@ -18,6 +22,8 @@ use Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Auth;
+use DB;
+use Mail;
 
 class IndexController extends Controller
 {
@@ -47,11 +53,12 @@ class IndexController extends Controller
             'name' => 'required',
             'password' =>  'required|min:8',
             'pincode' => 'required|min:6|max:6',
-            'mobile' => 'required',
+            'mobile' => 'required|unique:ecosansar_users,mobile',
             'email' => 'required|email',
             'address' => 'required',
-            'gst' => 'required'
+            'gst' => 'required|min:15|regex:/^([0-9]){2}([A-Za-z]){5}([0-9]){4}([A-Za-z]){1}([0-9]{1})([A-Za-z]){1}([0-9]{1})?$/',
         ]);
+      //  echo $a = Hash::make($req->password);die;
 
         $user = new EcosansarUsers;
         $user->name = $req->name;
@@ -73,7 +80,7 @@ class IndexController extends Controller
         $req->validate([
             'name' => 'required',
             'pincode' => 'required|min:6|max:6',
-            'mobile' => 'required|numeric|min:10|max:10',
+            'mobile' => 'required|unique:ecosansar_users,mobile',
             'address' => 'required',
             'latitude' => 'required',
             'longitude' =>'required'
@@ -94,10 +101,12 @@ class IndexController extends Controller
         $req->validate([
             'name' => 'required',
             'pincode' => 'required|min:6|max:6',
-            'mobile' => 'required|numeric|min:10|max:10',
+            'mobile' => 'required|unique:ecosansar_users,mobile',
             'address' => 'required',
             'email' =>'required',
-            'type_of_residences' => 'required'
+            'type_of_residences' => 'required',
+            'latitude' => 'required',
+            'longitude' =>'required'
         ]);
         $user = new EcosansarUsers;
         $user->name = $req->name;
@@ -107,6 +116,8 @@ class IndexController extends Controller
         $user->type_of_residences = $req->type_of_residences;
         $user->email = $req->email;
         $user->user_type = $req->user_type;
+        $user->latitude = $req->latitude;
+        $user->longitude = $req->longitude;
         $user->save();
 
         Alert::success('success','Registration Successfull');
@@ -135,35 +146,43 @@ class IndexController extends Controller
         // Retrieve the user by the provided email address
         $user = EcosansarUsers::where('email', $input['email'])->where('user_type','business')->first();
 
-        // Verify the password
-        if ($user && Hash::check($input['password'], $user->password)) {
+        // Check if user exists and is checked
+        if ($user && $user->is_checked && Hash::check($input['password'], $user->password)) {
             // Authentication successful, redirect to business details page
             session()->put('user_id', $user->id);
-            // Check if there is a redirect_to value in the session
-     $redirect_to = session()->get('redirect_to');
-     //$redirect_to = session('redirect_to');
-     if ($redirect_to) {
-         // If so, print the value (for debugging purposes)
-       //  echo "Redirect To: " . $redirect_to;
-         // Redirect the user to that page
-         session()->forget('redirect_to'); // Clear the session value
-         return redirect($redirect_to);
-     }
+            session()->put('user_type', $user->user_type);
 
-     // If there's no redirect_to value, redirect to the consumer_posts page
+
+
+            // Check if there is a redirect_to value in the session
+            $redirect_to = session()->get('redirect_to');
+            if ($redirect_to) {
+                // If so, redirect the user to that page
+                session()->forget('redirect_to'); // Clear the session value
+                return redirect($redirect_to);
+            }
+
+            // If there's no redirect_to value, redirect to the business_posts page
             return redirect()->route('business_posts');
         } else {
             // Authentication failed, redirect back to login with error message
-            return redirect()->route('business_login')->withErrors([
-                'password' => 'You have entered an incorrect password.',
-            ])->withInput();
+            if ($user && !$user->is_checked) {
+                return redirect()->route('business_login')->withErrors([
+                    'email' => 'You need approval from administrator.',
+                ])->withInput();
+            } else {
+                return redirect()->route('business_login')->withErrors([
+                    'password' => 'You have entered an incorrect password.',
+                ])->withInput();
+            }
         }
     }
+
     public function business_post_save(Request $request){
         // echo "<pre>";
         // print_r($req->all());die;
          $user_id = session()->get('user_id');
-
+         $user_type = session()->get('user_type');
         $request->validate([
             'address' =>'required',
             'pincode' =>'required',
@@ -226,6 +245,7 @@ class IndexController extends Controller
     }
     public function business_posts(){
         $user_id = session()->get('user_id');
+        $user_type = session()->get('user_type');
        $listings = BusinessPost::join('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
    ->join('resources', 'resources.id', 'business_resource_posts.resource_type')
    ->select('business_posts.*', 'resources.resource_name')
@@ -249,6 +269,7 @@ foreach ($postIds as $postId) {
    }
     public function business_details(){
         $user_id = session()->get('user_id');
+        $user_type = session()->get('user_type');
         $resources = Resource::get();
         $weights =Weight::get();
         return view('frontend/userdetails/businessdetails',compact('user_id','resources','weights'));
@@ -285,9 +306,10 @@ foreach ($postIds as $postId) {
         $user = EcosansarUsers::where('mobile', $input['mobile'])->where('user_type','sab')->first();
 
         // Verify the otp
-        if ($user && ($input['otp'] == $user->otp)) {
+        if ($user && $user->is_checked && ($input['otp'] == $user->otp)) {
             // Authentication successful, redirect to business details page
             session()->put('user_id', $user->id);
+            session()->put('user_type', $user->user_type);
             // Check if there is a redirect_to value in the session
      $redirect_to = session()->get('redirect_to');
      //$redirect_to = session('redirect_to');
@@ -303,14 +325,20 @@ foreach ($postIds as $postId) {
             return redirect()->route('sab_posts');
         } else {
             // Authentication failed, redirect back to login with error message
-            return redirect()->route('sab_login')->withErrors([
-                'mobile' => 'The provided phone number is not registered.',
-                'otp' => 'You have entered an incorrect otp.',
-            ])->withInput();
+            if ($user && !$user->is_checked) {
+                return redirect()->route('sab_login')->withErrors([
+                    'mobile' => 'You need approval from administrator.',
+                ])->withInput();
+            } else {
+                return redirect()->route('sab_login')->withErrors([
+                    'otp' => 'You have entered an incorrect otp.',
+                ])->withInput();
+            }
         }
     }
     public function sab_posts(){
         $user_id = session()->get('user_id');
+        $user_type = session()->get('user_type');
        $listings = SABPost::join('s_a_b_resource_posts', 's_a_b_resource_posts.post_id', 's_a_b_posts.id')
    ->join('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
    ->select('s_a_b_posts.*', 'resources.resource_name')
@@ -334,6 +362,7 @@ foreach ($postIds as $postId) {
    }
     public function sab_details(){
         $user_id = session()->get('user_id');
+        $user_type = session()->get('user_type');
         $resources = Resource::get();
         $weights =Weight::get();
         return view('frontend/userdetails/sabdetails',compact('user_id','resources','weights'));
@@ -342,7 +371,7 @@ foreach ($postIds as $postId) {
         // echo "<pre>";
         // print_r($req->all());die;
          $user_id = session()->get('user_id');
-
+         $user_type = session()->get('user_type');
         $request->validate([
             'name' =>'required',
             'mobile' => 'required',
@@ -431,10 +460,11 @@ foreach ($postIds as $postId) {
         $user = EcosansarUsers::where('mobile', $input['mobile'])->where('user_type','consumer')->first();
 
         // Verify the otp
-        if ($user && ($input['otp'] == $user->otp)) {
+        if ($user && $user->is_checked && ($input['otp'] == $user->otp)) {
             // Authentication successful, redirect to business details page
          // Store user_id in the session
         session()->put('user_id', $user->id);
+        session()->put('user_type', $user->user_type);
     // Check if there is a redirect_to value in the session
      $redirect_to = session()->get('redirect_to');
     //$redirect_to = session('redirect_to');
@@ -451,14 +481,20 @@ foreach ($postIds as $postId) {
 
         } else {
             // Authentication failed, redirect back to login with error message
-            return redirect()->route('consumer_login')->withErrors([
-                'mobile' => 'The provided phone number is not registered.',
-                'otp' => 'You have entered an incorrect otp.',
-            ])->withInput();
+            if ($user && !$user->is_checked) {
+                return redirect()->route('consumer_login')->withErrors([
+                    'mobile' => 'You need approval from administrator.',
+                ])->withInput();
+            } else {
+                return redirect()->route('consumer_login')->withErrors([
+                    'otp' => 'You have entered an incorrect otp.',
+                ])->withInput();
+            }
         }
     }
     public function consumer_posts(){
          $user_id = session()->get('user_id');
+         $user_type = session()->get('user_type');
         // $listings = ConsumerPost::
         // where('user_id',$user_id)->get();
         // $listings = ConsumerPost::join('consumer_resource_posts','consumer_resource_posts.post_id','consumer_posts.id')
@@ -488,6 +524,7 @@ foreach ($postIds as $postId) {
     }
     public function consumer_details(){
          $user_id = session()->get('user_id');
+         $user_type = session()->get('user_type');
        $users = EcosansarUsers::where('id',$user_id)->first();
        $resources = Resource::get();
        $weights =Weight::get();
@@ -497,7 +534,7 @@ foreach ($postIds as $postId) {
         // echo "<pre>";
         // print_r($req->all());die;
          $user_id = session()->get('user_id');
-
+         $user_type = session()->get('user_type');
         $request->validate([
             'name' =>'required',
             'mobile' => 'required',
@@ -565,28 +602,113 @@ foreach ($postIds as $postId) {
     }
     public function consumer_listing_details($id){
          $user_id = session()->get('user_id');
+         $user_type = session()->get('user_type');
         $consumerpostsres = ConsumerResourcePost::where('user_id',$user_id)->where('post_id',$id)->get();
         $consumerposts = ConsumerPost::join('weights','weights.id','consumer_posts.quantity')
         ->select('consumer_posts.*','weights.*')
         ->where('consumer_posts.user_id',$user_id)
         ->where('consumer_posts.id',$id)->first();
+        $conreviews = ConsumerReview::where('post_id',$id)->where('user_id',$user_id)->get();
         // echo "<pre>";
         // print_r($consumerposts);die;
-        return view('frontend/userdetails/consumerlistingdetail',compact('consumerpostsres','consumerposts'));
+        return view('frontend/userdetails/consumerlistingdetail',compact('consumerpostsres','consumerposts','conreviews'));
     }
+
     public function sab_listing_details($id){
         $user_id = session()->get('user_id');
+        $user_type = session()->get('user_type');
+        $sab = SABPost::where('id',$id)->first();;
+        $sabuserid = $sab->user_id;
+        $sabpostid = $sab->post_id;
        $sabpostsres = SABResourcePost::where('user_id',$user_id)->where('post_id',$id)->get();
        $sabposts = SABPost::join('weights','weights.id','s_a_b_posts.quantity')
        ->select('s_a_b_posts.*','weights.*')
        ->where('s_a_b_posts.user_id',$user_id)
        ->where('s_a_b_posts.id',$id)->first();
-       // echo "<pre>";
-       // print_r($consumerposts);die;
-       return view('frontend/userdetails/sablistingdetail',compact('sabpostsres','sabposts'));
-   }
+
+       $sabreviews = SABReview::where('post_id',$id)->where('user_id',$user_id)->get();
+       $sabenquiries = SabEnquiry::where('post_id',$id)->where('user_id',$sabuserid)->get();
+    if($sabenquiries->isEmpty()){
+    }else{
+       $enquiry_id = $sabenquiries[0]->id;
+     }
+       $sabenquirymsg = SABEnquiryMessages::where('post_id',$id)->where('user_id',$sabuserid)->get();
+    //      echo "<pre>";
+    //    print_r($sabenquirymsg);die;
+    if($sabenquiries->isEmpty()){
+        return view('frontend/userdetails/sablistingdetail',compact('sabpostsres','sabposts','sabreviews','sabenquiries','user_id','sabuserid','id','sabenquirymsg'));
+    }else{
+
+       return view('frontend/userdetails/sablistingdetail',compact('sabpostsres','sabposts','sabreviews','sabenquiries','user_id','sabuserid','id','enquiry_id','sabenquirymsg'));
+   }}
+
+   public function sabsendEnquiryEmail(Request $request)
+    {
+
+        $request->validate([
+            'email' => 'required|email',
+            'message' => 'required'
+        ]);
+
+          $email = $request->input('email');
+           $messageContent = $request->input('message');
+
+    $sabenquiry =  new SABEnquiryMessages;
+    $sabenquiry->enquiry_id = $request->enquiry_id;
+    $sabenquiry->login_id = $request->login_id;
+    $sabenquiry->user_id = $request->user_id;
+    $sabenquiry->post_id = $request->post_id;
+    $sabenquiry->adminmessage = $request->input('message');
+    $sabenquiry->type = 'admin';
+    $sabenquiry->save();
+
+    $data = [
+        'email' => $email,
+        'messageContent' => $messageContent,
+        'title' => 'Response to your enquiry'
+    ];
+    Mail::send('frontend.mail.sabenquirymail', $data, function($message)use($data){
+        $message->to($data["email"], $data["email"])
+                ->subject($data["title"]);
+    });
+    Alert::success('success','Mail Send Successfully');
+    return redirect()->back();
+    }
+
+    public function loginsabsendEnquiryEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'message' => 'required'
+        ]);
+
+          $email = $request->input('email');
+           $messageContent = $request->input('message');
+
+           $sabenquiry =  new SABEnquiryMessages;
+           $sabenquiry->enquiry_id = $request->enquiry_id;
+           $sabenquiry->login_id = $request->login_id;
+           $sabenquiry->user_id = $request->user_id;
+           $sabenquiry->post_id = $request->post_id;
+    $sabenquiry->usermessage = $request->input('message');
+    $sabenquiry->type = 'loginuser';
+    $sabenquiry->save();
+
+    $data = [
+        'email' => $email,
+        'messageContent' => $messageContent,
+        'title' => 'Response to your enquiry'
+    ];
+    Mail::send('frontend.mail.sabenquirymail', $data, function($message)use($data){
+        $message->to($data["email"], $data["email"])
+                ->subject($data["title"]);
+    });
+    Alert::success('success','Mail Send Successfully');
+    return redirect()->back();
+    }
    public function business_listing_details($id){
     $user_id = session()->get('user_id');
+    $user_type = session()->get('user_type');
    $businesspostsres = BusinessResourcePost::where('user_id',$user_id)->where('post_id',$id)->get();
    $businessposts = BusinessPost::join('weights','weights.id','business_posts.quantity')
    ->select('business_posts.*','weights.*')
@@ -598,10 +720,11 @@ foreach ($postIds as $postId) {
 }
 
 public function listings(){
-    $user_id = session()->get('user_id');
+     $user_id = session()->get('user_id');
+      $user_type = session()->get('user_type');
 
 //Business posts
-
+if ($user_type !== 'consumer') {
     $listings = BusinessPost::join('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
 ->join('resources', 'resources.id', 'business_resource_posts.resource_type')
 ->select('business_posts.*', 'resources.resource_name');
@@ -624,10 +747,10 @@ $uniqueListing = $postListings->first();
 $uniqueListing->resource_names = $resourceNames;
 $busuniqueListings->push($uniqueListing);
 }
-
+}
 
 //SAB posts
-
+if ($user_type !== 'consumer') {
 $listings = SABPost::join('s_a_b_resource_posts', 's_a_b_resource_posts.post_id', 's_a_b_posts.id')
 ->join('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
 ->select('s_a_b_posts.*', 'resources.resource_name');
@@ -649,7 +772,7 @@ $uniqueListing = $postListings->first();
 $uniqueListing->resource_names = $resourceNames;
 $sabuniqueListings->push($uniqueListing);
 }
-
+}
 //Consumer posts
 $listings = ConsumerPost::join('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
 ->join('resources', 'resources.id', 'consumer_resource_posts.resource_type')
@@ -672,19 +795,35 @@ $uniqueListing = $postListings->first();
 $uniqueListing->resource_names = $resourceNames;
 $conuniqueListings->push($uniqueListing);
 }
-    return view('frontend/listings/listingslist',compact('busuniqueListings','sabuniqueListings','conuniqueListings'));
+if ($user_type == 'consumer') {
+    return view('frontend/listings/listingslist',compact('conuniqueListings','user_type'));
+}else if($user_type == 'sab'){
+    return view('frontend/listings/listingslist',compact('conuniqueListings','user_type'));
+}else if($user_type == 'business'){
+    return view('frontend/listings/listingslist',compact('conuniqueListings','sabuniqueListings','user_type'));
+}else{
+    return view('frontend/listings/listingslist',compact('conuniqueListings','sabuniqueListings','busuniqueListings','user_type'));
+}
 }
 public function con_listing_details($id) {
     // Check if the user is logged in
-    $user_id = session()->get('user_id');
 
+      $user_id = session()->get('user_id');
+      $conpost = ConsumerPost::where('id',$id)->first();
+      $post_id = $conpost->id;
+     $u_id = $conpost->user_id;
+      $user_type = session()->get('user_type');
     if (null === $user_id || $user_id === '') {
         // User is not logged in, redirect to the login page
         session()->put('redirect_to', route('con_listing_details', $id));
         return redirect()->route('consumer_login');
     }
+// Fetch the user's role from the database
+$user = DB::table('ecosansar_users')->where('id', $user_id)->first();
+$conlistreviews = ConsumerReview::where('post_id',$id)->where('user_id',$u_id)->get();
 
-    // User is logged in, proceed to fetch the listing details
+if (($user && $user->user_type === 'business') || ($user && $user->user_type === 'sab') || ($user && $user->user_type === 'consumer')){
+    // User is logged in as a consumer, proceed to fetch the listing details
     $consumerpostsres = ConsumerResourcePost::where('post_id', $id)->get();
 
     $consumerposts = ConsumerPost::join('weights', 'weights.id', 'consumer_posts.quantity')
@@ -692,24 +831,79 @@ public function con_listing_details($id) {
         ->where('consumer_posts.id', $id)
         ->first();
 
-    return view('frontend/listings/con_listing_details', compact('consumerpostsres', 'consumerposts'));
+    return view('frontend/listings/con_listing_details', compact('consumerpostsres', 'consumerposts','id','u_id','post_id','conlistreviews'));
+}
+// If the user is not logged in as a consumer, redirect to the login page
+session()->put('redirect_to', route('con_listing_details', $id));
+return redirect()->route('consumer_login');
 }
 
 public function sabs_listing_details($id){
-    $user_id = session()->get('user_id');
+      $user_id = session()->get('user_id');
+    $user_type = session()->get('user_type');
+    $sabpost = SABPost::where('id',$id)->first();
+     $post_id = $sabpost->id;
+    $u_id = $sabpost->user_id;
     if (null === $user_id || $user_id === '') {
         session()->put('redirect_to', route('sabs_listing_details', $id));
         return redirect()->route('sab_login'); // Redirect to the login page
     }
-    return view('frontend/listings/sab_listing_details');
+      // Fetch the user's role from the database
+$user = DB::table('ecosansar_users')->where('id', $user_id)->first();
+$sablistreviews = SABReview::where('post_id',$id)->where('user_id',$u_id)->get();
+$sabenquiries = SabEnquiry::where('post_id',$id)->where('user_id',$u_id)->get();
+if($sabenquiries->isEmpty()){
+
+}else{
+$enquiry_id = $sabenquiries[0]->id;
+}
+$sabenquirymsg = SABEnquiryMessages::where('post_id',$id)->where('user_id',$u_id)->get();
+// echo "<pre>";
+// print_r($sabenquiries);die;
+if ($user && $user->user_type === 'business'){
+    // User is logged in as a consumer, proceed to fetch the listing details
+    $sabpostsres = SABResourcePost::where('post_id', $id)->get();
+
+    $sabposts = SABPost::join('weights', 'weights.id', 's_a_b_posts.quantity')
+        ->select('s_a_b_posts.*', 'weights.*')
+        ->where('s_a_b_posts.id', $id)
+        ->first();
+        if($sabenquiries->isEmpty()){
+    return view('frontend/listings/sab_listing_details',compact('sabposts','sabpostsres','id','u_id','post_id','sablistreviews','user_id','sabenquiries','sabenquirymsg'));
+        }else{
+            return view('frontend/listings/sab_listing_details',compact('sabposts','sabpostsres','id','u_id','post_id','sablistreviews','user_id','sabenquiries','enquiry_id','sabenquirymsg'));
+        }
+}else{
+return redirect()->route('sab_login');
+}
 }
 public function bus_listing_details($id){
     $user_id = session()->get('user_id');
+    $user_type = session()->get('user_type');
+    $buspost = BusinessPost::where('id',$id)->first();
+    $post_id = $buspost->id;
+   $u_id = $buspost->user_id;
     if (null === $user_id || $user_id === '') {
         session()->put('redirect_to', route('bus_listing_details', $id));
         return redirect()->route('business_login'); // Redirect to the login page
     }
-    return view('frontend/listings/bus_listing_details');
+    // Fetch the user's role from the database
+$user = DB::table('ecosansar_users')->where('id', $user_id)->first();
+// If the user is not logged in or their user_type is 'business', redirect to the business login page
+
+if  ($user && $user->user_type === 'business'){
+    // User is logged in as a consumer, proceed to fetch the listing details
+    $buspostsres = BusinessResourcePost::where('post_id', $id)->get();
+
+    $busposts = BusinessPost::join('weights', 'weights.id', 'business_posts.quantity')
+        ->select('business_posts.*', 'weights.*')
+        ->where('business_posts.id', $id)
+        ->first();
+    return view('frontend/listings/bus_listing_details',compact('buspostsres','busposts','id','u_id','post_id'));
+}
+// If the user is not logged in as a consumer, redirect to the login page
+session()->put('redirect_to', route('bus_listing_details', $id));
+return redirect()->route('business_login');
 }
 }
 

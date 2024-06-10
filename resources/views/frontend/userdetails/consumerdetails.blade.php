@@ -20,7 +20,7 @@
                                     <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">  Name<span style="color:red;">*</span></label>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder=" Name" value="@if(isset($users->name)){{ $users->name }}@else{{ old('name')}}@endif">
+                                        <input readonly type="text" class="form-control" name="name" id="name" placeholder=" Name" value="@if(isset($users->name)){{ $users->name }}@else{{ old('name')}}@endif">
                                         @if ($errors->has('name'))
                                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                                             @endif
@@ -30,7 +30,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="mobile">Phone number<span style="color:red;">*</span></label>
-                                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number" value="@if(isset($users->mobile)){{ $users->mobile }}@else{{ old('mobile')}}@endif">
+                                            <input readonly type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number" value="@if(isset($users->mobile)){{ $users->mobile }}@else{{ old('mobile')}}@endif">
                                             @if ($errors->has('mobile'))
                                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
                                                 @endif
@@ -43,7 +43,7 @@
                                     <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Email id<span style="color:red;">*</span></label>
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="@if(isset($users->email)){{ $users->email }}@else{{ old('email')}}@endif">
+                                        <input readonly type="email" class="form-control" name="email" id="email" placeholder="Email" value="@if(isset($users->email)){{ $users->email }}@else{{ old('email')}}@endif">
                                         @if ($errors->has('email'))
                                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                                 @endif
@@ -52,7 +52,7 @@
                                 <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="address">Address<span style="color:red;">*</span></label>
-                                    <input type="text" class="form-control" name="address" id="address" placeholder="Address" value="@if(isset($users->address)){{ $users->address }}@else{{ old('address')}}@endif">
+                                    <input readonly type="text" class="form-control" name="address" id="address" placeholder="Address" value="@if(isset($users->address)){{ $users->address }}@else{{ old('address')}}@endif">
                                     @if ($errors->has('name'))
                                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                                             @endif

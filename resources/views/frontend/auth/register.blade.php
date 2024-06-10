@@ -24,7 +24,7 @@
 
                                 <div class="form-group">
                                     <label for="name"> Business Name<span style="color:red;">*</span></label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Business Name">
+                                    <input onkeydown="return /[a-z ]/i.test(event.key)" type="text" class="form-control" name="name" id="name" placeholder="Business Name">
                                     @if ($errors->has('name'))
                                             <span class="text-danger">{{ $errors->first('name') }}</span>
                                         @endif
@@ -42,7 +42,7 @@
                             <!--end form-group-->
                             <div class="form-group">
                                 <label for="pincode">Pincode<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode">
+                                <input onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 8" type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode" minlength="6" maxlength="6">
                                 @if ($errors->has('name'))
                                             <span class="text-danger">{{ $errors->first('name') }}</span>
                                         @endif
@@ -52,7 +52,7 @@
 
                                 <div class="form-group">
                                     <label for="contact_person">Contact Person<span style="color:red;">*</span></label>
-                                    <input type="text" class="form-control" name="contact_person" id="contact_person" placeholder="Contact Person">
+                                    <input onkeydown="return /[a-z ]/i.test(event.key)" type="text" class="form-control" name="contact_person" id="contact_person" placeholder="Contact Person">
                                     @if ($errors->has('name'))
                                             <span class="text-danger">{{ $errors->first('name') }}</span>
                                         @endif
@@ -62,7 +62,7 @@
 
                                 <div class="form-group">
                                     <label for="mobile">Phone number<span style="color:red;">*</span></label>
-                                    <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number">
+                                    <input onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 8" type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number" minlength="10" maxlength="10">
                                     @if ($errors->has('mobile'))
                                             <span class="text-danger">{{ $errors->first('mobile') }}</span>
                                         @endif

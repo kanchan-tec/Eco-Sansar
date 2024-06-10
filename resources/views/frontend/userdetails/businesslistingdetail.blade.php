@@ -19,9 +19,9 @@
     <section>
         <div class="gallery detail">
             <div class="owl-carousel" data-owl-items="3" data-owl-loop="1" data-owl-auto-width="1" data-owl-nav="1" data-owl-dots="0" data-owl-margin="2" data-owl-nav-container="#gallery-nav">
-                @foreach($businesspostsres as $businessposts)
+                @foreach($businesspostsres as $businposts)
                 <div class="image">
-                    <div class="bg-transfer"><img src="{{ asset('frontend/assets/img/Businessposts/'.$businessposts->resource_img) }}" alt=""></div>
+                    <div class="bg-transfer"><img src="{{ asset('frontend/assets/img/Businessposts/'.$businposts->resource_img) }}" alt=""></div>
                 </div>
             @endforeach
             </div>

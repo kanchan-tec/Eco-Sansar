@@ -170,25 +170,18 @@
 {{--  Business post section start  --}}
 
                 <section>
-
+                    @if($user_type !== 'consumer' && $user_type !== 'business' && $user_type !== 'sab')
                     <h1>Business Posts</h1>
 
                     <div class="row">
+
                         @foreach($busuniqueListings as $listing)
                             <div class="col-md-4 col-sm-4">
                                 <div class="item" data-id="{{ $listing->id }}">
                                     <a href="{{ url('bus_listing_details/'.$listing->id) }}">
                                         <div class="description">
-                                            <ul>
-                                                @foreach(explode(', ', $listing->resource_names) as $resourceName)
-                                                    <li>{{ $resourceName }}</li>
-                                                @endforeach
-                                            </ul>
-                                            <h4>{{ $listing->name }}</h4>
-                                            <h4>{{ $listing->sale_giveaway }}</h4>
-                                            <h4>{{ $listing->address }}</h4>
-                                            <h4>{{ $listing->clean_unclean }}</h4>
-                                            <h4>{{ $listing->packaged }}</h4>
+
+
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
@@ -197,6 +190,21 @@
                                         <!--end image-->
                                     </a>
                                     <div class="additional-info">
+                                        <ul>
+                                            @foreach(explode(', ', $listing->resource_names) as $index => $resourceName)
+                                                @if($index < 2)
+                                                    <li>{{ $resourceName }}</li>
+                                                @else
+                                                    @break
+                                                @endif
+                                            @endforeach
+                                        </ul>
+
+                                        <h4>{{ $listing->name }}</h4>
+                                            <h4>{{ $listing->sale_giveaway }}</h4>
+                                            <h4>{{ $listing->address }}</h4>
+                                            <h4>{{ $listing->clean_unclean }}</h4>
+                                            <h4>{{ $listing->packaged }}</h4>
                                         <div class="rating-passive" data-rating="{{ $listing->rating }}">
                                             <span class="stars"></span>
                                             <span class="reviews">{{ $listing->reviews_count }}</span>
@@ -216,16 +224,19 @@
                             </div>
                             <!--end col-md-4-->
                         @endforeach
-                    </div>
 
+                    </div>
+                    @endif
                     <!--end row-->
                 </section>
 
 {{--  Business post section end  --}}
                 {{--  SAB posts section start  --}}
                 <section>
+                    @if($user_type !== 'consumer' && $user_type !== 'sab')
                     <h1>SAB Posts</h1>
                     <div class="row">
+
                         @foreach($sabuniqueListings as $listing)
                             <div class="col-md-4 col-sm-4">
                                 <div class="item" data-id="{{ $listing->id }}">
@@ -268,8 +279,9 @@
                             </div>
                             <!--end col-md-4-->
                         @endforeach
-                    </div>
 
+                    </div>
+                    @endif
                     <!--end row-->
                 </section>
 {{--  SAB posts section end  --}}

@@ -153,6 +153,21 @@
                     </ul>
                 </li>
 
+                <li class="menu-title">Reviews</li>
+
+                <li>
+                    <a href="{{route('user.sabreviews')}}">
+                        <i class="uil-home-alt"></i>
+                        <span>SAB</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('user.consumerreviews')}}">
+                        <i class="uil-home-alt"></i>
+                        <span>Consumer</span>
+                    </a>
+                </li>
+
                 {{--
 
                 <li class="menu-title">@lang('translation.Apps')</li>
